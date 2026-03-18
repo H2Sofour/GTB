@@ -1,0 +1,2124 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Supervision GTB - Site Quattros | Niagara</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root { --grid-line:rgba(0,137,123,0.07); }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:#eef6f0;color:#1b3a2a;font-family:'Exo 2',sans-serif;font-size:14px;height:100vh;overflow:hidden;
+    background-image:linear-gradient(var(--grid-line) 1px,transparent 1px),linear-gradient(90deg,var(--grid-line) 1px,transparent 1px);
+    background-size:40px 40px;}
+  .header{display:flex;align-items:center;justify-content:space-between;
+    background:linear-gradient(90deg,#1b5e35 0%,#2e7d4f 40%,#1b5e35 100%);
+    border-bottom:2px solid #43a868;padding:0 20px;height:52px;
+    box-shadow:0 2px 16px rgba(46,125,79,.3);position:relative;z-index:100;}
+  .logo-area{display:flex;align-items:center;gap:14px;}
+  .logo-icon{width:34px;height:34px;background:linear-gradient(135deg,#a5d6a7,#fff);
+    clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
+    display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#1b5e35;
+    animation:pulse-logo 3s infinite;}
+  @keyframes pulse-logo{0%,100%{box-shadow:0 0 8px rgba(165,214,167,.6);}50%{box-shadow:0 0 20px rgba(165,214,167,.9);}}
+  .logo-text{font-family:'Rajdhani',sans-serif;font-size:20px;font-weight:700;letter-spacing:3px;color:#c8f0d0;}
+  .logo-sub{font-size:10px;color:rgba(200,240,208,.75);letter-spacing:2px;text-transform:uppercase;margin-top:-2px;}
+  .header-center{text-align:center;}
+  .site-name{font-family:'Rajdhani',sans-serif;font-size:16px;font-weight:600;letter-spacing:4px;color:#fff;text-transform:uppercase;}
+  .site-desc{font-size:10px;color:rgba(200,240,208,.75);letter-spacing:2px;}
+  .header-right{display:flex;align-items:center;gap:20px;}
+  .clock{font-family:'Share Tech Mono',monospace;font-size:14px;color:#c8f0d0;letter-spacing:2px;}
+  .status-dot{width:8px;height:8px;border-radius:50%;background:#69f0ae;box-shadow:0 0 8px #69f0ae;animation:blink 2s infinite;}
+  @keyframes blink{0%,100%{opacity:1;}50%{opacity:.4;}}
+  .status-label{font-size:10px;color:#a5d6a7;letter-spacing:1px;}
+  .main-layout{display:grid;grid-template-columns:200px 1fr 220px;height:calc(100vh - 52px);}
+  .left-nav{background:#f0f9f3;border-right:1px solid rgba(0,137,123,.2);padding:12px 0;overflow-y:auto;}
+  .nav-section-title{font-size:9px;letter-spacing:2px;color:#90b8a0;text-transform:uppercase;padding:8px 16px 4px;font-family:'Rajdhani',sans-serif;}
+  .nav-item{display:flex;align-items:center;gap:8px;padding:9px 16px;cursor:pointer;transition:all .2s;border-left:2px solid transparent;font-size:13px;color:#4a7a5a;}
+  .nav-item:hover{background:rgba(0,137,123,.07);color:#1b3a2a;}
+  .nav-item.active{background:rgba(0,137,123,.12);color:#00695c;border-left-color:#00897b;}
+  .nav-icon{font-size:14px;width:18px;text-align:center;}
+  .nav-badge{margin-left:auto;font-size:9px;padding:1px 5px;border-radius:8px;background:rgba(198,40,40,.12);color:#c62828;}
+  .nav-badge.ok{background:rgba(46,125,50,.12);color:#2e7d32;}
+  .center-content{overflow-y:auto;padding:16px;background:#eef6f0;}
+  .tabs{display:flex;gap:2px;margin-bottom:14px;}
+  .tab{padding:8px 18px;font-family:'Rajdhani',sans-serif;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;
+    background:#dceee2;color:#4a7a5a;border:1px solid rgba(0,137,123,.2);transition:all .2s;clip-path:polygon(8px 0%,100% 0%,100% 100%,0% 100%);}
+  .tab.active{background:#00897b;color:#fff;border-color:#00695c;}
+  .tab:hover:not(.active){color:#1b3a2a;background:rgba(0,137,123,.1);}
+  .floor-plans{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+  .floor-card{background:#fff;border:1px solid rgba(0,137,123,.25);border-radius:4px;overflow:hidden;position:relative;box-shadow:0 2px 8px rgba(0,100,80,.08);}
+  .floor-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#00897b,transparent);}
+  .floor-header{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:linear-gradient(90deg,#e8f5e9,#f1f8f2);border-bottom:1px solid rgba(0,137,123,.15);}
+  .floor-title{font-family:'Rajdhani',sans-serif;font-size:16px;font-weight:700;letter-spacing:2px;color:#00695c;}
+  .floor-area{font-size:11px;color:#4a7a5a;}
+  .floor-svg{width:100%;padding:6px;}
+  .kpi-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:4px;}
+  .kpi-card{background:#fff;border:1px solid rgba(0,137,123,.2);border-radius:4px;padding:12px 14px;position:relative;overflow:hidden;}
+  .kpi-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;}
+  .kpi-card.cyan::after{background:#00897b;}.kpi-card.green::after{background:#2e7d32;}
+  .kpi-card.orange::after{background:#e65100;}.kpi-card.red::after{background:#c62828;}.kpi-card.purple::after{background:#6a1b9a;}
+  .kpi-label{font-size:10px;color:#4a7a5a;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px;}
+  .kpi-value{font-family:'Share Tech Mono',monospace;font-size:24px;}
+  .kpi-value.cyan{color:#00695c;}.kpi-value.green{color:#2e7d32;}.kpi-value.orange{color:#e65100;}.kpi-value.red{color:#c62828;}.kpi-value.purple{color:#6a1b9a;}
+  .kpi-unit{font-size:10px;color:#4a7a5a;margin-left:2px;}
+  .kpi-sub{font-size:10px;color:#90b8a0;margin-top:2px;}
+  .right-panel{background:#f0f9f3;border-left:1px solid rgba(0,137,123,.2);overflow-y:auto;padding:12px;}
+  .panel-section{margin-bottom:16px;}
+  .panel-title{font-family:'Rajdhani',sans-serif;font-size:12px;letter-spacing:2px;color:#00695c;text-transform:uppercase;border-bottom:1px solid rgba(0,137,123,.2);padding-bottom:5px;margin-bottom:8px;}
+  .point-row{display:flex;align-items:center;justify-content:space-between;padding:5px 0;border-bottom:1px solid rgba(0,100,80,.06);gap:6px;}
+  .point-name{font-size:11px;color:#4a7a5a;flex:1;line-height:1.3;}
+  .point-name span{display:block;font-size:10px;color:#90b8a0;}
+  .point-val{font-family:'Share Tech Mono',monospace;font-size:12px;padding:2px 6px;border-radius:2px;white-space:nowrap;}
+  .pv-ok{background:rgba(46,125,50,.1);color:#2e7d32;}.pv-warn{background:rgba(230,81,0,.1);color:#e65100;}
+  .pv-cyan{background:rgba(0,137,123,.1);color:#00695c;}.pv-off{background:rgba(144,184,160,.2);color:#90b8a0;}
+  .gauge-row{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+  .gauge-label{font-size:11px;color:#4a7a5a;width:72px;flex-shrink:0;}
+  .gauge-bar{flex:1;height:6px;background:rgba(0,100,80,.1);border-radius:3px;overflow:hidden;}
+  .gauge-fill{height:100%;border-radius:3px;}
+  .gauge-val{font-family:'Share Tech Mono',monospace;font-size:11px;width:40px;text-align:right;}
+  .alarm-item{display:flex;align-items:flex-start;gap:7px;padding:6px 8px;border-radius:3px;margin-bottom:4px;border-left:2px solid transparent;}
+  .alarm-item.warning{background:rgba(230,81,0,.06);border-left-color:#e65100;}
+  .alarm-item.info{background:rgba(0,137,123,.06);border-left-color:#00897b;}
+  .alarm-text{font-size:10px;line-height:1.4;flex:1;}
+  .alarm-text strong{display:block;color:#1b3a2a;font-size:10px;margin-bottom:1px;}
+  .alarm-text span{color:#4a7a5a;font-size:9px;}
+  .alarm-time{font-family:'Share Tech Mono',monospace;font-size:9px;color:#90b8a0;white-space:nowrap;}
+  ::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-thumb{background:rgba(0,137,123,.3);border-radius:2px;}
+  .tab-content{display:none;}.tab-content.active{display:block;}
+  .scanline{position:fixed;top:0;left:0;right:0;bottom:0;
+    background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,100,80,.012) 3px,rgba(0,100,80,.012) 4px);
+    pointer-events:none;z-index:9999;}
+
+  /* ══ LISTE DE POINTS ══ */
+  .pt-filter{padding:3px 10px;font-family:'Rajdhani',sans-serif;font-size:10px;letter-spacing:1px;cursor:pointer;
+    background:#dceee2;color:#4a7a5a;border:1px solid rgba(0,137,123,.2);border-radius:2px;transition:all .2s;}
+  .pt-filter.active,.pt-filter:hover{background:#00897b;color:#fff;border-color:#00695c;}
+  .pt-table{width:100%;border-collapse:collapse;font-size:11px;}
+  .pt-table th{background:linear-gradient(90deg,#1b5e35,#2e7d4f);color:#c8f0d0;padding:5px 8px;font-family:'Rajdhani',sans-serif;letter-spacing:1px;font-size:9px;text-transform:uppercase;text-align:left;white-space:nowrap;position:sticky;top:0;z-index:2;}
+  .pt-table td{padding:4px 8px;border-bottom:1px solid rgba(0,137,123,.08);font-family:'Exo 2',sans-serif;vertical-align:middle;white-space:nowrap;}
+  .pt-table tr:hover td{background:rgba(0,137,123,.04);}
+  .pt-table td.lot-cfo{color:#0277bd;font-weight:600;}
+  .pt-table td.lot-cvcd{color:#2e7d32;font-weight:600;}
+  .pt-table td.lot-cfa{color:#6a1b9a;font-weight:600;}
+  .pt-table td.lot-ssi{color:#c62828;font-weight:600;}
+  .pt-table td.x-mark{text-align:center;color:#00897b;font-size:11px;}
+  .pt-val-ok{background:rgba(46,125,50,.1);color:#2e7d32;padding:1px 5px;border-radius:2px;font-family:'Share Tech Mono',monospace;font-size:9px;}
+  .pt-val-warn{background:rgba(230,81,0,.1);color:#e65100;padding:1px 5px;border-radius:2px;font-family:'Share Tech Mono',monospace;font-size:9px;}
+  .pt-val-na{color:#90b8a0;font-size:9px;}
+  /* ══ SIMULATION ══ */
+  /* Sous-navigation */
+  .sim-subnav{display:flex;gap:4px;margin-bottom:12px;flex-wrap:wrap;}
+  .sim-sub{padding:6px 14px;font-family:'Rajdhani',sans-serif;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;
+    cursor:pointer;background:#dceee2;color:#4a7a5a;border:1px solid rgba(0,137,123,.2);border-radius:3px;transition:all .2s;}
+  .sim-sub.active,.sim-sub:hover{background:#00897b;color:#fff;border-color:#00695c;}
+  .sim-page{display:none;} .sim-page.active{display:block;}
+  /* Onglets par salle */
+  .room-tab{padding:4px 10px;font-family:'Rajdhani',sans-serif;font-size:10px;letter-spacing:1px;
+    cursor:pointer;background:#f0f9f3;color:#4a7a5a;border:1px solid rgba(0,137,123,.2);
+    border-radius:3px;transition:all .2s;white-space:nowrap;}
+  .room-tab.active{background:#00897b;color:#fff;border-color:#00695c;}
+  .room-tab:hover:not(.active){background:rgba(0,137,123,.1);color:#1b3a2a;}
+  .sim-grid{display:grid;grid-template-columns:310px 1fr;gap:14px;height:100%;}
+  .sim-panel{background:#fff;border:1px solid rgba(0,137,123,.2);border-radius:4px;padding:14px;overflow-y:auto;max-height:calc(100vh - 160px);}
+  .sim-panel-title{font-family:'Rajdhani',sans-serif;font-size:13px;letter-spacing:2px;color:#00695c;text-transform:uppercase;border-bottom:1px solid rgba(0,137,123,.2);padding-bottom:7px;margin-bottom:12px;}
+  .sim-section-label{font-size:10px;letter-spacing:1.5px;color:#00897b;text-transform:uppercase;font-family:'Rajdhani',sans-serif;margin-bottom:6px;margin-top:2px;}
+  .sim-row{display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(0,137,123,.06);gap:8px;}
+  .sim-row label{font-size:10px;color:#4a7a5a;flex:1;}
+  .sim-ctrl{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+  .sim-ctrl input[type=range]{width:90px;accent-color:#00897b;cursor:pointer;}
+  .sim-val{font-family:'Share Tech Mono',monospace;font-size:10px;color:#1b3a2a;min-width:52px;text-align:right;}
+  .sim-toggle-row{display:flex;align-items:center;gap:8px;}
+  .sim-toggle{position:relative;display:inline-block;width:34px;height:18px;flex-shrink:0;}
+  .sim-toggle input{opacity:0;width:0;height:0;}
+  .sim-slider{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background:#ccc;border-radius:18px;transition:.3s;}
+  .sim-slider::before{position:absolute;content:"";height:12px;width:12px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.3s;}
+  .sim-toggle input:checked+.sim-slider{background:#00897b;}
+  .sim-toggle input:checked+.sim-slider::before{transform:translateX(16px);}
+  .sim-reset-btn{margin-top:14px;width:100%;padding:7px;background:rgba(0,137,123,.1);border:1px solid rgba(0,137,123,.3);border-radius:3px;color:#00695c;font-family:'Rajdhani',sans-serif;font-size:12px;letter-spacing:1px;cursor:pointer;transition:all .2s;}
+  .sim-reset-btn:hover{background:rgba(0,137,123,.2);}
+  .sim-results{background:#fff;border:1px solid rgba(0,137,123,.2);border-radius:4px;padding:14px;overflow-y:auto;max-height:calc(100vh - 160px);}
+  .sim-status-bar{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:4px;margin-bottom:12px;font-size:11px;font-weight:600;background:rgba(46,125,50,.08);border:1px solid rgba(46,125,50,.25);color:#2e7d32;transition:all .3s;}
+  .sim-status-bar.warn{background:rgba(230,81,0,.08);border-color:rgba(230,81,0,.3);color:#e65100;}
+  .sim-status-bar.crit{background:rgba(198,40,40,.08);border-color:rgba(198,40,40,.3);color:#c62828;}
+  .sim-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px;}
+  .sim-kpi{background:#f7fbf8;border:1px solid rgba(0,137,123,.15);border-radius:4px;padding:8px 10px;}
+  .sim-kpi-label{font-size:8px;color:#4a7a5a;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;}
+  .sim-kpi-val{font-family:'Share Tech Mono',monospace;font-size:18px;color:#00695c;transition:color .3s;}
+  .sim-kpi-val.warn{color:#e65100;}
+  .sim-kpi-val.crit{color:#c62828;}
+  .sim-alerts-title{font-family:'Rajdhani',sans-serif;font-size:11px;letter-spacing:1.5px;color:#00695c;text-transform:uppercase;margin-bottom:6px;}
+  .sim-alert{font-size:10px;padding:6px 10px;border-radius:3px;margin-bottom:4px;border-left:2px solid transparent;}
+  .sim-alert-ok{background:rgba(46,125,50,.06);border-left-color:#2e7d32;color:#2e7d32;}
+  .sim-alert-warn{background:rgba(230,81,0,.06);border-left-color:#e65100;color:#e65100;}
+  .sim-alert-crit{background:rgba(198,40,40,.06);border-left-color:#c62828;color:#c62828;}
+  .sim-chart-title{font-family:'Rajdhani',sans-serif;font-size:11px;letter-spacing:1.5px;color:#00695c;text-transform:uppercase;margin-top:12px;margin-bottom:4px;}
+  .sim-systems{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:4px;}
+  .sim-sys{display:flex;align-items:center;justify-content:space-between;padding:5px 8px;background:#f7fbf8;border:1px solid rgba(0,137,123,.12);border-radius:3px;font-size:9px;}
+  .sim-sys-name{color:#4a7a5a;}
+  .sim-sys-val{font-family:'Share Tech Mono',monospace;font-size:9px;padding:2px 6px;border-radius:2px;}
+  .sys-ok{background:rgba(46,125,50,.1);color:#2e7d32;}
+  .sys-warn{background:rgba(230,81,0,.1);color:#e65100;}
+  .sys-crit{background:rgba(198,40,40,.1);color:#c62828;}
+  .sys-off{background:rgba(144,184,160,.2);color:#90b8a0;}
+</style>
+</head>
+<body>
+<div class="scanline"></div>
+
+<div class="header">
+  <div class="logo-area">
+    <div class="logo-icon">N4</div>
+    <div><div class="logo-text">NIAGARA</div><div class="logo-sub">Framework 4 · GTB Supervision</div></div>
+  </div>
+  <div class="header-center">
+    <div class="site-name">Site Quattros</div>
+    <div class="site-desc">Système de Gestion Technique du Bâtiment · ECY-650-CO</div>
+  </div>
+  <div class="header-right">
+    <div>
+      <div class="clock" id="clock">--:--:--</div>
+      <div style="font-size:9px;color:#90b8a0;text-align:right;margin-top:1px;" id="date-display">---</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:5px;">
+      <div class="status-dot"></div><div class="status-label">EN LIGNE</div>
+    </div>
+  </div>
+</div>
+
+<div class="main-layout">
+  <div class="left-nav">
+    <div class="nav-section-title">Navigation</div>
+    <div class="nav-item active" onclick="showTab('plans')"><span class="nav-icon">🏢</span>Plans de niveaux</div>
+    <div class="nav-item" onclick="showTab('points')"><span class="nav-icon">📊</span>Points GTB<span class="nav-badge">72</span></div>
+    <div class="nav-item" onclick="showTab('alarmes')"><span class="nav-icon">🔔</span>Alarmes<span class="nav-badge">3</span></div>
+    <div class="nav-item" onclick="showTab('simulation')"><span class="nav-icon">🧪</span>Simulation</div>
+    <div class="nav-item" onclick="showTab('composants')"><span class="nav-icon">🔧</span>Composants</div>
+    <div class="nav-section-title" style="margin-top:8px;">Lots techniques</div>
+    <div class="nav-item"><span class="nav-icon">⚡</span>CFO — Éclairage<span class="nav-badge ok">OK</span></div>
+    <div class="nav-item"><span class="nav-icon">🌡️</span>CVCD — CVC<span class="nav-badge ok">OK</span></div>
+    <div class="nav-item"><span class="nav-icon">🔒</span>CFA — Sécurité<span class="nav-badge">1</span></div>
+    <div class="nav-item"><span class="nav-icon">🔥</span>SSI — Incendie<span class="nav-badge ok">OK</span></div>
+
+  </div>
+
+  <div class="center-content">
+    <div class="tabs">
+      <div class="tab active" onclick="showTab('plans')">Plans de niveaux</div>
+      <div class="tab" onclick="showTab('points')">Points GTB</div>
+      <div class="tab" onclick="showTab('alarmes')">Alarmes actives</div>
+      <div class="tab" onclick="showTab('simulation')">Simulation</div>
+      <div class="tab" onclick="showTab('composants')">Composants</div>
+    </div>
+
+    <div class="tab-content active" id="tab-plans">
+      <div class="floor-plans">
+
+        <!-- ══════════════════════════════════════
+             RDC — coordonnées exactes image-map
+             viewBox 573 x 620
+        ══════════════════════════════════════ -->
+        <div class="floor-card">
+          <div class="floor-header">
+            <div class="floor-title">RDC — Rez-de-Chaussée</div>
+            <div class="floor-area">TGBT 1 · CTA · UPS · Batterie</div>
+          </div>
+          <svg class="floor-svg" viewBox="0 0 573 620" xmlns="http://www.w3.org/2000/svg">
+
+            <!-- Fond global couloir -->
+            <rect x="0" y="0" width="573" height="620" fill="#f5d5c5" stroke="#222" stroke-width="3"/>
+
+            <!-- ── COULOIR (forme exacte) ── -->
+            <polygon
+              points="0,486 0,405 27,404 27,432 261,431 262,270 235,270 234,81 182,81 181,53 53,53 52,107 78,107 78,189 1,188 1,1 286,2 286,216 313,216 313,351 415,352 416,403 364,404 364,486 235,485 133,487"
+              fill="#f5d5c5" stroke="#333" stroke-width="1.5" stroke-linejoin="round"/>
+
+            <!-- ── BAIES 1 — rect 288,0 → 547,136 ── -->
+            <rect x="288" y="0" width="259" height="136" fill="#b8d4e8" stroke="#333" stroke-width="1.8"/>
+
+            <!-- ── CASE VIDE haut-droite — rect 547,1 → 574,217 ── -->
+            <!-- volontairement vide -->
+
+            <!-- ── STOCK ── -->
+            <polygon points="312,351 312,216 288,216 288,136 547,136 547,216 572,216 572,351"
+              fill="#f5c842" stroke="#333" stroke-width="1.8" stroke-linejoin="round"/>
+
+            <!-- ── CTA ballon tampon ── -->
+            <polygon points="572,486 496,486 496,404 416,404 416,352 572,352"
+              fill="#f5c842" stroke="#333" stroke-width="1.8" stroke-linejoin="round"/>
+
+            <!-- ── SANITAIRE 1 — rect 366,404 → 495,486 ── -->
+            <rect x="366" y="404" width="129" height="82" fill="#f8f8f0" stroke="#333" stroke-width="1.8"/>
+
+            <!-- ── SALLE DE RÉUNION 1 — rect 132,270 → 262,432 ── -->
+            <rect x="132" y="270" width="130" height="162" fill="#d4b8e8" stroke="#333" stroke-width="1.8"/>
+
+            <!-- ── LOCAL UPS — rect 1,188 → 157,269 ── -->
+            <rect x="1" y="188" width="156" height="81" fill="#f5c842" stroke="#333" stroke-width="1.8"/>
+
+            <!-- ── LOCAL TGBT 2 — rect 80,107 → 183,188 ── -->
+            <rect x="80" y="107" width="103" height="81" fill="#f5c842" stroke="#333" stroke-width="1.8"/>
+
+            <!-- ── ACCUEIL — rect 53,54 → 181,107 ── -->
+            <rect x="53" y="54" width="128" height="53" fill="#f0b8c0" stroke="#333" stroke-width="1.8"/>
+
+            <!-- ── ESCALIER — rect 182,82 → 235,190, cx=208 cy=136 ── -->
+            <rect x="182" y="82" width="53" height="108" fill="#c0c0b8" stroke="#333" stroke-width="1.8"/>
+
+            <!-- ── ASCENSEUR — rect 158,188 → 235,269, cx=196 cy=228 ── -->
+            <rect x="158" y="188" width="77" height="81" fill="#f0f0ee" stroke="#333" stroke-width="1.8"/>
+
+            <!-- ── LOCAL BATTERIE ── -->
+            <polygon points="1,270 130,269 130,351 79,352 78,378 27,378 27,405 0,405"
+              fill="#f5c842" stroke="#333" stroke-width="1.8" stroke-linejoin="round"/>
+
+            <!-- ── LOCAL TGBT 1 ── -->
+            <polygon points="27,432 27,378 78,377 79,352 130,352 131,431 62,431"
+              fill="#f5c842" stroke="#333" stroke-width="1.8" stroke-linejoin="round"/>
+
+            <!-- ── BUREAUX 1 — rect 0,487 → 156,620 ── -->
+            <rect x="0" y="487" width="156" height="133" fill="#d4b8e8" stroke="#333" stroke-width="1.8"/>
+
+            <!-- ── BUREAUX 2 — rect 158,486 → 311,620 ── -->
+            <rect x="158" y="486" width="153" height="134" fill="#d4b8e8" stroke="#333" stroke-width="1.8"/>
+
+            <!-- ── BAIES 2 — rect 313,486 → 573,620 ── -->
+            <rect x="313" y="486" width="260" height="134" fill="#b8d4e8" stroke="#333" stroke-width="1.8"/>
+
+            <!-- Bordure externe -->
+            <rect x="0" y="0" width="573" height="620" fill="none" stroke="#222" stroke-width="3"/>
+
+            <!-- ════ LABELS RDC ════ -->
+
+            <!-- Couloir RDC : bande basse cx=200 cy=459 -->
+            <text x="200" y="450" text-anchor="middle" font-family="'Exo 2',sans-serif" font-weight="700" font-size="11" fill="#6a4a2a">Couloir RDC</text>
+            <text x="200" y="465" id="svg-couloir-rdc" text-anchor="middle" font-family="'Share Tech Mono',monospace" font-size="10" fill="#6a4a2a">💡 Auto | 19.0°C</text>
+
+            <!-- Accueil: cx=117 cy=80 w=128 h=53 -->
+            <text x="117" y="80" text-anchor="middle" font-family="'Exo 2',sans-serif" font-weight="700" font-size="12" fill="#1a1a1a">Accueil</text>
+
+            <!-- TGBT2: cx=131 cy=147 w=103 h=81 → lumière + temp -->
+            <text x="131" y="136" text-anchor="middle" font-family="'Exo 2',sans-serif" font-weight="700" font-size="11" fill="#1a1a1a">Local TGBT 2</text>
+            <text x="131" id="svg-tgbt2" y="150" text-anchor="middle" font-family="'Share Tech Mono',monospace" font-size="9.5" fill="#004400">💡 ON | 21.0°C</text>
+
+            <!-- Escalier: cx=208 cy=136 w=53 h=108 -->
+            <text x="208" y="140" text-anchor="middle" font-family="'Exo 2',sans-serif" font-weight="700" font-size="9" fill="#333">Escalier</text>
+
+            <!-- Ascenseur: cx=196 cy=228 w=77 h=81 -->
+            <text x="196" y="232" text-anchor="middle" font-family="'Exo 2',sans-serif" font-weight="700" font-size="10" fill="#444">Ascenseur</text>
+
+            <!-- Baies 1: cx=417 cy=68 w=259 h=136 -->
+            <text x="417" y="50" text-anchor="middle" font-family="'Exo 2',sans-serif" font-weight="700" font-size="13" fill="#1a1a1a">Baies 1</text>
+            <text x="417" y="66" id="svg-baies1" text-anchor="middle" font-family="'Share Tech Mono',monospace" font-size="10.5" fill="#c62828">⚠ 28.4°C ↑ Refroid. actif</text>
+            <text x="417" y="81" id="svg-baies1-clim" text-anchor="middle" font-family="'Share Tech Mono',monospace" font-size="10" fill="#004400">❄ 6/6 actives — redond. ✔</text>
+
+            <!-- Local UPS: cx=79 cy=228 w=156 h=81 → lumière + temp -->
+            <text x="79" y="220" text-anchor="middle" font-family="'Exo 2',sans-serif" font-weight="700" font-size="11" fill="#1a1a1a">Local UPS</text>
+            <text x="79" y="235" id="svg-ups" text-anchor="middle" font-family="'Share Tech Mono',monospace" font-size="9.5" fill="#004400">💡 ON | 22.1°C</text>
+
+            <!-- STOCK: cx=430 cy=243 w=284 h=215 → temp ≥19°C, lumière -->
+            <text x="430" y="235" text-anchor="middle" font-family="'Exo 2',sans-serif" font-weight="700" font-size="14" fill="#1a1a1a">STOCK</text>
+            <text x="430" id="svg-stock" y="252" text-anchor="middle" font-family="'Share Tech Mono',monospace" font-size="11" fill="#004400">💡 OFF  |  🌡️ 19.5°C</text>
+
+            <!-- Local Batterie: cx=65 cy=310 w=130 h=81 → lumière + temp -->
+            <text x="65" y="302" text-anchor="middle" font-family="'Exo 2',sans-serif" font-weight="700" font-size="11" fill="#1a1a1a">Local</text>
+            <text x="65" y="314" text-anchor="middle" font-family="'Exo 2',sans-serif" font-weight="700" font-size="11" fill="#1a1a1a">Batterie</text>
+            <text x="65" id="svg-batterie" y="328" text-anchor="middle" font-family="'Share Tech Mono',monospace" font-size="9.5" fill="#004400">💡 ON | 19.8°C</text>
+
+            <!-- TGBT1: cx=90 cy=392 w=53 h=80 → lumière + temp -->
+            <text x="90" y="382" text-anchor="middle" font-family="'Exo 2',sans-serif" font-weight="700" font-size="10" fill="#1a1a1a">Local</text>
+            <text x="90" y="394" text-anchor="middle" font-family="'Exo 2',sans-serif" font-weight="700" font-size="10" fill="#1a1a1a">TGBT 1</text>
+            <text x="90" id="svg-tgbt1" y="407" text-anchor="middle" font-family="'Share Tech Mono',monospace" font-size="8.5" fill="#004400">💡 ON | 21°C</text>
+
+            <!-- SDR1 (Salle réunion 1): cx=197 cy=351 w=130 h=162 → temp + CO₂ + lumière -->
+            <text x="197" y="328" text-anchor="middle" font-family="'Exo 2',sans-serif" font-weight="700" font-size="12" fill="#1a1a1a">Salle de réunion 1</text>
+            <text x="197" id="svg-sdr1" y="346" text-anchor="middle" font-family="'Share Tech Mono',monospace" font-size="9.5" fill="#004400">21.5°C | CO₂ 421ppm</text>
+            <text x="197" y="360" text-anchor="middle" font-family="'Share Tech Mono',monospace" font-size="9.5" fill="#004400">💡 ON</text>
+
+            <!-- CTA: cx=494 cy=378 w=156 h=52 -->
+            <text x="494" y="368" text-anchor="middle" font-family="'Exo 2',sans-serif" font-weight="700" font-size="10" fill="#1a1a1a">CTA &amp; ballon tampon</text>
+            <text x="494" y="382" id="svg-cta" text-anchor="middle" font-family="'Share Tech Mono',monospace" font-size="9.5" fill="#004400">Ch 62°C | Fr 8°C | ✔</text>
+
+            <!-- Sanitaire 1: cx=430 cy=445 w=129 h=82 -->
+            <text x="430" y="440" text-anchor="middle" font-family="'Exo 2',sans-serif" font-weight="700" font-size="11" fill="#1a1a1a">Sanitaire 1</text>
+            <text x="430" y="454" text-anchor="middle" font-family="'Share Tech Mono',monospace" font-size="9.5" fill="#004400">💡 Auto | 19.5°C</text>
+
+            <!-- Bureaux 1: cx=78 cy=553 w=156 h=133 → temp + lumière SANS CO₂ -->
+            <text x="78" y="535" text-anchor="middle" font-family="'Exo 2',sans-serif" font-weight="700" font-size="12" fill="#1a1a1a">Bureaux 1</text>
+            <text x="78" id="svg-bur1-temp" y="551" text-anchor="middle" font-family="'Share Tech Mono',monospace" font-size="10.5" fill="#004400">21.8°C | 💡 ON</text>
+
+            <!-- Bureaux 2: cx=234 cy=553 w=153 h=134 → temp + lumière SANS CO₂ -->
+            <text x="234" y="535" text-anchor="middle" font-family="'Exo 2',sans-serif" font-weight="700" font-size="12" fill="#1a1a1a">Bureaux 2</text>
+            <text x="234" id="svg-bur2-temp" y="551" text-anchor="middle" font-family="'Share Tech Mono',monospace" font-size="10.5" fill="#004400">22.0°C | 💡 ON</text>
+
+            <!-- Baies 2: cx=443 cy=553 w=260 h=134 -->
+            <text x="443" y="534" text-anchor="middle" font-family="'Exo 2',sans-serif" font-weight="700" font-size="13" fill="#1a1a1a">Baies 2</text>
+            <text x="443" id="svg-baies2" y="550" text-anchor="middle" font-family="'Share Tech Mono',monospace" font-size="11" fill="#c62828">⚠ 27.9°C</text>
+            <text x="443" y="565" id="svg-baies2-clim" text-anchor="middle" font-family="'Share Tech Mono',monospace" font-size="10" fill="#004400">❄ 6/6 actives — redond. ✔</text>
+          <!-- Légende sous le plan -->
+          <div style="display:flex;flex-wrap:wrap;gap:12px;padding:6px 10px 8px;border-top:1px solid rgba(0,137,123,.12);background:#f8fbf9;">
+            <div style="display:flex;align-items:center;gap:5px;">
+              <div style="width:14px;height:10px;background:#f5c842;border:1px solid #888;border-radius:2px;flex-shrink:0;"></div>
+              <span style="font-family:'Exo 2',sans-serif;font-size:10px;color:#4a7a5a;">Technique</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:5px;">
+              <div style="width:14px;height:10px;background:#d4b8e8;border:1px solid #888;border-radius:2px;flex-shrink:0;"></div>
+              <span style="font-family:'Exo 2',sans-serif;font-size:10px;color:#4a7a5a;">Bureaux / SDR</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:5px;">
+              <div style="width:14px;height:10px;background:#b8d4e8;border:1px solid #888;border-radius:2px;flex-shrink:0;"></div>
+              <span style="font-family:'Exo 2',sans-serif;font-size:10px;color:#4a7a5a;">Baies IT</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:5px;">
+              <div style="width:14px;height:10px;background:#f0b8c0;border:1px solid #888;border-radius:2px;flex-shrink:0;"></div>
+              <span style="font-family:'Exo 2',sans-serif;font-size:10px;color:#4a7a5a;">Accueil</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:5px;">
+              <div style="width:14px;height:10px;background:#f5d5c5;border:1px solid #888;border-radius:2px;flex-shrink:0;"></div>
+              <span style="font-family:'Exo 2',sans-serif;font-size:10px;color:#4a7a5a;">Couloirs</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════════════
+             R+1 — Premier Étage
+        ══════════════════════════════════════ -->
+        <div class="floor-card">
+          <div class="floor-header">
+            <div class="floor-title">R+1 — Premier Étage</div>
+            <div class="floor-area">TGBT 2 · Surveillance · SSI</div>
+          </div>
+          <svg class="floor-svg" viewBox="0 0 573 622" xmlns="http://www.w3.org/2000/svg">
+
+            <!-- Fond couloir -->
+            <rect x="0" y="0" width="573" height="622" fill="#f5d5c5" stroke="#222" stroke-width="3"/>
+
+            <!-- ── COULOIR (forme exacte) ── -->
+            <polygon
+              points="572,488 572,433 313,433 313,163 494,162 494,111 288,109 288,56 132,56 132,110 105,110 105,163 54,164 54,189 2,189 2,352 54,351 55,217 156,217 157,189 182,189 182,81 236,81 236,325 261,325 262,487"
+              fill="#f5d5c5" stroke="#333" stroke-width="1.5" stroke-linejoin="round"/>
+
+            <!-- ── SALLE DE RÉUNION 2 (polygone) ── -->
+            <polygon points="1,189 53,189 53,163 105,163 104,109 132,109 131,0 1,0"
+              fill="#d4b8e8" stroke="#333" stroke-width="1.8" stroke-linejoin="round"/>
+
+            <!-- ── LOCAL SURVEILLANCE — rect 132,0→287,56 ── -->
+            <rect x="132" y="0" width="155" height="56" fill="#f5c842" stroke="#333" stroke-width="1.8"/>
+
+            <!-- ── SALLE DE RÉUNION 3 — rect 287,1→419,110 ── -->
+            <rect x="287" y="1" width="132" height="109" fill="#d4b8e8" stroke="#333" stroke-width="1.8"/>
+
+            <!-- ── SALLE DE RÉUNION 4 — rect 419,1→548,110 ── -->
+            <rect x="419" y="1" width="129" height="109" fill="#d4b8e8" stroke="#333" stroke-width="1.8"/>
+
+            <!-- ── ESCALIER — rect 183,81→235,190 ── -->
+            <rect x="183" y="81" width="52" height="109" fill="#c0c0b8" stroke="#333" stroke-width="1.8"/>
+
+            <!-- ── ASCENSEUR — rect 157,190→236,272 ── -->
+            <rect x="157" y="190" width="79" height="82" fill="#f0f0ee" stroke="#333" stroke-width="1.8"/>
+
+            <!-- ── SANITAIRE 2 — rect 313,163→443,245 ── -->
+            <rect x="313" y="163" width="130" height="82" fill="#f8f8f0" stroke="#333" stroke-width="1.8"/>
+
+            <!-- ── BUREAUX 5 (polygone) ── -->
+            <polygon points="495,110 548,110 548,217 573,217 573,299 417,299 417,271 443,271 443,163 495,163"
+              fill="#d4b8e8" stroke="#333" stroke-width="1.8" stroke-linejoin="round"/>
+
+            <!-- ── CAFETERIA (polygone) ── -->
+            <polygon points="313,434 313,245 443,245 443,271 417,271 417,434"
+              fill="#d4b8e8" stroke="#333" stroke-width="1.8" stroke-linejoin="round"/>
+
+            <!-- ── SALLE DE RÉUNION 5 (polygone) ── -->
+            <polygon points="54,217 157,217 157,271 236,272 236,325 261,325 261,352 54,351"
+              fill="#d4b8e8" stroke="#333" stroke-width="1.8" stroke-linejoin="round"/>
+
+            <!-- ── SALLE DE RÉUNION 6 — rect 417,298→572,433 ── -->
+            <rect x="417" y="298" width="155" height="135" fill="#d4b8e8" stroke="#333" stroke-width="1.8"/>
+
+            <!-- ── OPEN-SPACE — rect 1,351→260,621 ── -->
+            <rect x="1" y="351" width="259" height="270" fill="#d4b8e8" stroke="#333" stroke-width="1.8"/>
+
+            <!-- ── BUREAUX 3 — rect 260,487→416,622 ── -->
+            <rect x="260" y="487" width="156" height="135" fill="#d4b8e8" stroke="#333" stroke-width="1.8"/>
+
+            <!-- ── BUREAUX 4 — rect 418,487→572,622 ── -->
+            <rect x="418" y="487" width="154" height="135" fill="#d4b8e8" stroke="#333" stroke-width="1.8"/>
+
+            <!-- Bordure externe -->
+            <rect x="0" y="0" width="573" height="622" fill="none" stroke="#222" stroke-width="3"/>
+
+            <!-- ════ LABELS R+1 ════ -->
+
+            <!-- Couloir R+1 : bande basse cx=417 cy=460 -->
+            <text x="417" y="450" text-anchor="middle" font-family="'Exo 2',sans-serif" font-weight="700" font-size="11" fill="#6a4a2a">Couloir R+1</text>
+            <text x="417" y="465" id="svg-couloir-r1" text-anchor="middle" font-family="'Share Tech Mono',monospace" font-size="10" fill="#6a4a2a">💡 Auto | 19.0°C</text>
+
+            <!-- SDR2 (Salle réunion 2): cx=66 cy=54 w=131 h=109 → temp + CO₂ + lumière -->
+            <text x="66" y="38" text-anchor="middle" font-family="'Exo 2',sans-serif" font-weight="700" font-size="11" fill="#1a1a1a">Salle de réunion 2</text>
+            <text x="66" id="svg-sdr2" y="53" text-anchor="middle" font-family="'Share Tech Mono',monospace" font-size="9" fill="#004400">21.2°C | CO₂ 398ppm</text>
+            <text x="66" y="66" text-anchor="middle" font-family="'Share Tech Mono',monospace" font-size="9" fill="#004400">💡 ON</text>
+
+            <!-- Local Surveillance: cx=209 cy=28 w=155 h=56 → lumière + temp -->
+            <text x="209" y="18" text-anchor="middle" font-family="'Exo 2',sans-serif" font-weight="700" font-size="11" fill="#1a1a1a">Local Surveillance</text>
+            <text x="209" id="svg-surv" y="33" text-anchor="middle" font-family="'Share Tech Mono',monospace" font-size="9" fill="#004400">💡 ON | 21.0°C</text>
+
+            <!-- SDR3 (Salle réunion 3): cx=353 cy=55 w=132 h=109 → temp + CO₂ + lumière -->
+            <text x="353" y="37" text-anchor="middle" font-family="'Exo 2',sans-serif" font-weight="700" font-size="12" fill="#1a1a1a">Salle de réunion 3</text>
+            <text x="353" id="svg-sdr3" y="53" text-anchor="middle" font-family="'Share Tech Mono',monospace" font-size="9.5" fill="#004400">20.8°C | CO₂ 412ppm</text>
+            <text x="353" y="66" text-anchor="middle" font-family="'Share Tech Mono',monospace" font-size="9.5" fill="#004400">💡 OFF</text>
+
+            <!-- SDR4 (Salle réunion 4): cx=483 cy=55 w=129 h=109 → temp + CO₂ + lumière -->
+            <text x="483" y="37" text-anchor="middle" font-family="'Exo 2',sans-serif" font-weight="700" font-size="12" fill="#1a1a1a">Salle de réunion 4</text>
+            <text x="483" id="svg-sdr4" y="53" text-anchor="middle" font-family="'Share Tech Mono',monospace" font-size="9.5" fill="#004400">21.0°C | CO₂ 405ppm</text>
+            <text x="483" y="66" text-anchor="middle" font-family="'Share Tech Mono',monospace" font-size="9.5" fill="#004400">💡 OFF</text>
+
+            <!-- Escalier: cx=209 cy=135 w=52 h=109 -->
+            <text x="209" y="139" text-anchor="middle" font-family="'Exo 2',sans-serif" font-weight="700" font-size="9" fill="#333">Escalier</text>
+
+            <!-- Ascenseur: cx=196 cy=231 w=79 h=82 -->
+            <text x="196" y="235" text-anchor="middle" font-family="'Exo 2',sans-serif" font-weight="700" font-size="10" fill="#444">Ascenseur</text>
+
+            <!-- Sanitaire 2: cx=378 cy=204 w=130 h=82 -->
+            <text x="378" y="199" text-anchor="middle" font-family="'Exo 2',sans-serif" font-weight="700" font-size="11" fill="#1a1a1a">Sanitaire 2</text>
+            <text x="378" y="213" text-anchor="middle" font-family="'Share Tech Mono',monospace" font-size="9.5" fill="#004400">💡 Auto | 19.5°C</text>
+
+            <!-- Bureaux 5: cx=510 cy=200 → temp + lumière SANS CO₂ -->
+            <text x="505" y="184" text-anchor="middle" font-family="'Exo 2',sans-serif" font-weight="700" font-size="12" fill="#1a1a1a">Bureaux 5</text>
+            <text x="505" id="svg-bur5" y="200" text-anchor="middle" font-family="'Share Tech Mono',monospace" font-size="10" fill="#004400">22.4°C | 💡 ON</text>
+
+            <!-- Cafétariat: cx=365 cy=339 → temp + CO₂ + lumière (SDR = salle réunion) -->
+            <text x="365" y="322" text-anchor="middle" font-family="'Exo 2',sans-serif" font-weight="700" font-size="12" fill="#1a1a1a">Cafétariat</text>
+            <text x="365" y="336" text-anchor="middle" font-family="'Exo 2',sans-serif" font-size="11" fill="#555">&amp; Salle pause</text>
+            <text x="365" id="svg-cafe" y="351" text-anchor="middle" font-family="'Share Tech Mono',monospace" font-size="9.5" fill="#004400">20.5°C | CO₂ 430ppm</text>
+            <text x="365" y="364" text-anchor="middle" font-family="'Share Tech Mono',monospace" font-size="9.5" fill="#004400">💡 ON</text>
+
+            <!-- SDR5 (Salle réunion 5): zone basse cx=157 cy=311 -->
+            <text x="157" y="300" text-anchor="middle" font-family="'Exo 2',sans-serif" font-weight="700" font-size="12" fill="#1a1a1a">Salle de réunion 5</text>
+            <text x="157" id="svg-sdr5" y="315" text-anchor="middle" font-family="'Share Tech Mono',monospace" font-size="9.5" fill="#004400">21.5°C | CO₂ 445ppm</text>
+            <text x="157" y="328" text-anchor="middle" font-family="'Share Tech Mono',monospace" font-size="9.5" fill="#004400">💡 ON</text>
+
+            <!-- SDR6 (Salle réunion 6): cx=494 cy=365 w=155 h=135 → temp + CO₂ + lumière -->
+            <text x="494" y="347" text-anchor="middle" font-family="'Exo 2',sans-serif" font-weight="700" font-size="12" fill="#1a1a1a">Salle de réunion 6</text>
+            <text x="494" id="svg-sdr6" y="363" text-anchor="middle" font-family="'Share Tech Mono',monospace" font-size="9.5" fill="#004400">21.8°C | CO₂ 410ppm</text>
+            <text x="494" y="377" text-anchor="middle" font-family="'Share Tech Mono',monospace" font-size="9.5" fill="#004400">💡 ON</text>
+
+            <!-- Openspace: cx=130 cy=486 w=259 h=270 → temp + lumière SANS CO₂ -->
+            <text x="130" y="462" text-anchor="middle" font-family="'Exo 2',sans-serif" font-weight="700" font-size="13" fill="#1a1a1a">Openspace</text>
+            <text x="130" id="svg-open-temp" y="479" text-anchor="middle" font-family="'Share Tech Mono',monospace" font-size="11" fill="#004400">22.1°C | 💡 ON</text>
+
+            <!-- Bureaux 3: cx=338 cy=554 w=156 h=135 → temp + lumière SANS CO₂ -->
+            <text x="338" y="538" text-anchor="middle" font-family="'Exo 2',sans-serif" font-weight="700" font-size="12" fill="#1a1a1a">Bureaux 3</text>
+            <text x="338" id="svg-bur3" y="554" text-anchor="middle" font-family="'Share Tech Mono',monospace" font-size="10.5" fill="#004400">21.6°C | 💡 ON</text>
+
+            <!-- Bureaux 4: cx=495 cy=554 w=154 h=135 → temp + lumière SANS CO₂ -->
+            <text x="495" y="538" text-anchor="middle" font-family="'Exo 2',sans-serif" font-weight="700" font-size="12" fill="#1a1a1a">Bureaux 4</text>
+            <text x="495" id="svg-bur4" y="554" text-anchor="middle" font-family="'Share Tech Mono',monospace" font-size="10.5" fill="#004400">21.4°C | 💡 ON</text>
+        </div>
+
+      </div>
+
+      <!-- KPI STRIP -->
+      <div class="kpi-strip">
+        <div class="kpi-card cyan"><div class="kpi-label">Temp. moy. bâtiment</div><div><span class="kpi-value cyan" id="kpi-temp">21.6</span><span class="kpi-unit">°C</span></div><div class="kpi-sub">Consigne: 22.0°C ↓ -0.4°C</div></div>
+        <div class="kpi-card green"><div class="kpi-label">Éclairage actif</div><div><span class="kpi-value green">8</span><span class="kpi-unit">/ 14 zones</span></div><div class="kpi-sub">Conso: 4.2 kWh ce jour</div></div>
+        <div class="kpi-card orange"><div class="kpi-label">CO₂ max. détecté</div><div><span class="kpi-value orange" id="kpi-co2">621</span><span class="kpi-unit">ppm</span></div><div class="kpi-sub">Openspace R+1 — Seuil: 800</div></div>
+        <div class="kpi-card purple"><div class="kpi-label">Points en alarme</div><div><span class="kpi-value purple">3</span><span class="kpi-unit">pts</span></div><div class="kpi-sub">2 warn. · 1 info</div></div>
+        <div class="kpi-card red"><div class="kpi-label">Temp. baies IT max.</div><div><span class="kpi-value red">28.4</span><span class="kpi-unit">°C</span></div><div class="kpi-sub">⚠ Seuil: 25°C — Refroid. actif</div></div>
+      </div>
+    </div>
+
+    <!-- TAB: POINTS -->
+    <div class="tab-content" id="tab-points">
+      <div style="margin-bottom:10px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+        <span style="font-family:'Rajdhani',sans-serif;font-size:11px;color:#00695c;letter-spacing:1px;">FILTRER :</span>
+        <button class="pt-filter active" onclick="filterPoints('all',this)">Tous (72)</button>
+        <button class="pt-filter" onclick="filterPoints('CFO',this)">CFO</button>
+        <button class="pt-filter" onclick="filterPoints('CVCD',this)">CVCD</button>
+        <button class="pt-filter" onclick="filterPoints('CFA',this)">CFA</button>
+        <button class="pt-filter" onclick="filterPoints('SSI',this)">SSI</button>
+        <button class="pt-filter" onclick="filterPoints('RDC',this)">RDC</button>
+        <button class="pt-filter" onclick="filterPoints('R+1',this)">R+1</button>
+      </div>
+      <div style="overflow-x:auto;">
+        <table class="pt-table" id="points-table">
+          <thead>
+            <tr>
+              <th>Lot</th><th>Niveau</th><th>Désignation</th><th>Zone</th><th>Protocole</th>
+              <th>TA</th><th>TS</th><th>TC</th><th>TM</th><th>TR</th>
+              <th>N° voie</th><th>Adresse</th><th>Valeur</th>
+            </tr>
+          </thead>
+          <tbody id="points-body">
+          </tbody>
+        </table>
+      </div>
+      <div style="margin-top:8px;font-size:9px;color:#90b8a0;font-family:'Share Tech Mono',monospace;">
+        ECY-650-CO · Niagara Framework 4 · Protocole BACnet/IP · Bus RS485 Modbus
+      </div>
+    </div>
+
+    <!-- TAB: ALARMES -->
+    <div class="tab-content" id="tab-alarmes">
+      <div style="display:grid;grid-template-columns:1fr;gap:8px;max-width:700px;">
+        <div style="font-family:'Rajdhani',sans-serif;color:#4a7a5a;font-size:11px;letter-spacing:1px;margin-bottom:4px;">3 alarme(s) active(s) — <span style="color:#00695c;" id="alm-time">--:--</span></div>
+        <div class="alarm-item warning"><div style="font-size:12px;margin-top:1px;">⚠️</div><div class="alarm-text"><strong>Température baies 1 élevée — RDC</strong><span>Valeur: 28.4°C · Seuil: 25.0°C · Refroidissement commandé automatiquement</span></div><div class="alarm-time">08:42</div></div>
+        <div class="alarm-item warning"><div style="font-size:12px;margin-top:1px;">⚠️</div><div class="alarm-text"><strong>Température baies 2 élevée — RDC</strong><span>Valeur: 27.9°C · Seuil: 25.0°C · Commande refroidissement active</span></div><div class="alarm-time">09:15</div></div>
+        <div class="alarm-item info"><div style="font-size:12px;margin-top:1px;">ℹ️</div><div class="alarm-text"><strong>CO₂ Openspace — dépassement seuil informatif</strong><span>Valeur: 621 ppm · Seuil info: 600 ppm · Seuil alarme: 800 ppm · Clapet d'air ouvert</span></div><div class="alarm-time">10:03</div></div>
+      </div>
+    </div>
+
+    <!-- TAB: SIMULATION -->
+    <div class="tab-content" id="tab-simulation">
+
+      <!-- Barre de sous-pages simulation -->
+      <div class="sim-subnav">
+        <button class="sim-sub active" onclick="showSimPage('sim-general')">⚙️ Général</button>
+        <button class="sim-sub" onclick="showSimPage('sim-temperature')">🌡️ Température</button>
+        <button class="sim-sub" onclick="showSimPage('sim-alarmes')">🚨 Alarmes</button>
+        <button class="sim-sub" onclick="showSimPage('sim-eclairage')">💡 Éclairage</button>
+        <button class="sim-sub" onclick="showSimPage('sim-conso')">⚡ Consommation</button>
+      </div>
+
+      <!-- ═══ PAGE : GÉNÉRAL ═══ -->
+      <div class="sim-page active" id="sim-general">
+        <div class="sim-grid">
+          <!-- Panneau paramètres -->
+          <div class="sim-panel">
+            <div class="sim-panel-title">⚙️ Paramètres de simulation</div>
+
+            <div class="sim-section-label">🌡️ Conditions extérieures</div>
+            <div class="sim-row"><label>Temp. extérieure</label>
+              <div class="sim-ctrl"><input type="range" id="s-text" min="-10" max="40" value="8" oninput="runSim()"><span class="sim-val" id="v-text">8°C</span></div></div>
+            <div class="sim-row"><label>Consigne bâtiment</label>
+              <div class="sim-ctrl"><input type="range" id="s-consigne" min="16" max="24" value="22" oninput="runSim()"><span class="sim-val" id="v-consigne">22°C</span></div></div>
+            <div class="sim-row"><label>Occupation (personnes)</label>
+              <div class="sim-ctrl"><input type="range" id="s-occ" min="0" max="50" value="30" oninput="runSim()"><span class="sim-val" id="v-occ">45</span></div></div>
+            <div class="sim-row"><label>Charge IT baies (kW)</label>
+              <div class="sim-ctrl"><input type="range" id="s-it" min="0" max="80" value="16" oninput="runSim()"><span class="sim-val" id="v-it">16 kW</span></div></div>
+
+            <div class="sim-section-label" style="margin-top:12px;">🔒 Sécurité</div>
+            <div class="sim-row"><label>Caméras actives</label>
+              <div class="sim-ctrl"><input type="range" id="s-cam" min="0" max="22" value="22" oninput="runSim()"><span class="sim-val" id="v-cam">22 / 22</span></div></div>
+            <div class="sim-row"><label>Intrusion détectée</label>
+              <div class="sim-ctrl sim-toggle-row"><label class="sim-toggle"><input type="checkbox" id="s-intru" onchange="runSim()"><span class="sim-slider"></span></label><span class="sim-val" id="v-intru" style="color:#2e7d32;">NON</span></div></div>
+            <div class="sim-row"><label>Alarme incendie</label>
+              <div class="sim-ctrl sim-toggle-row"><label class="sim-toggle"><input type="checkbox" id="s-fire" onchange="runSim()"><span class="sim-slider"></span></label><span class="sim-val" id="v-fire" style="color:#2e7d32;">NON</span></div></div>
+
+            <div class="sim-section-label" style="margin-top:12px;">⚡ Électrique</div>
+            <div class="sim-row"><label>Source principale</label>
+              <div class="sim-ctrl sim-toggle-row"><label class="sim-toggle"><input type="checkbox" id="s-secteur" checked onchange="runSim()"><span class="sim-slider"></span></label><span class="sim-val" id="v-secteur" style="color:#2e7d32;">ON</span></div></div>
+            <div class="sim-row"><label>Éclairage bureaux</label>
+              <div class="sim-ctrl sim-toggle-row"><label class="sim-toggle"><input type="checkbox" id="s-light" checked onchange="runSim()"><span class="sim-slider"></span></label><span class="sim-val" id="v-light" style="color:#2e7d32;">ON</span></div></div>
+            <div class="sim-row"><label>CVC actif</label>
+              <div class="sim-ctrl sim-toggle-row"><label class="sim-toggle"><input type="checkbox" id="s-cvc" checked onchange="runSim()"><span class="sim-slider"></span></label><span class="sim-val" id="v-cvc" style="color:#2e7d32;">ON</span></div></div>
+            <div class="sim-row"><label>Clim. baies actives</label>
+              <div class="sim-ctrl sim-toggle-row"><label class="sim-toggle"><input type="checkbox" id="s-climbaies" checked onchange="runSim()"><span class="sim-slider"></span></label><span class="sim-val" id="v-climbaies" style="color:#2e7d32;">ON</span></div></div>
+            <div class="sim-row"><label>Clim. UPS/Batterie</label>
+              <div class="sim-ctrl sim-toggle-row"><label class="sim-toggle"><input type="checkbox" id="s-climups" checked onchange="runSim()"><span class="sim-slider"></span></label><span class="sim-val" id="v-climups" style="color:#2e7d32;">ON</span></div></div>
+
+            <button class="sim-reset-btn" onclick="resetSim()">↺ Réinitialiser</button>
+          </div>
+
+          <!-- Résultats généraux -->
+          <div class="sim-results">
+            <div class="sim-status-bar" id="sim-status-bar"><span id="sim-status-icon">✅</span><span id="sim-status-text">Bâtiment opérationnel — tous systèmes nominaux</span></div>
+            <div class="sim-kpis">
+              <div class="sim-kpi"><div class="sim-kpi-label">Temp. moy. bâtiment</div><div class="sim-kpi-val" id="sv-temp">22.0°C</div></div>
+              <div class="sim-kpi"><div class="sim-kpi-label">CO₂ max. (ppm)</div><div class="sim-kpi-val" id="sv-co2">420</div></div>
+              <div class="sim-kpi"><div class="sim-kpi-label">Temp. baies IT</div><div class="sim-kpi-val" id="sv-baies">24.2°C</div></div>
+              <div class="sim-kpi"><div class="sim-kpi-label">Temp. UPS/Batt.</div><div class="sim-kpi-val" id="sv-ups">22.1°C</div></div>
+              <div class="sim-kpi"><div class="sim-kpi-label">Conso. électrique</div><div class="sim-kpi-val" id="sv-conso">18.4 kW</div></div>
+              <div class="sim-kpi"><div class="sim-kpi-label">Caméras actives</div><div class="sim-kpi-val" id="sv-cam">22 / 22</div></div>
+            </div>
+            <div class="sim-alerts-title">⚠️ Alertes générées</div>
+            <div id="sim-alerts-list"><div class="sim-alert sim-alert-ok">✅ Tous systèmes nominaux</div></div>
+            <div class="sim-alerts-title" style="margin-top:12px;">🏢 État détaillé des systèmes</div>
+            <div class="sim-systems" id="sim-systems-list"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ PAGE : TEMPÉRATURE ═══ -->
+      <div class="sim-page" id="sim-temperature">
+        <div class="sim-grid" style="grid-template-columns:280px 1fr;">
+
+          <!-- Panneau thermostats -->
+          <div class="sim-panel">
+            <div class="sim-panel-title">🌡️ Consignes thermostats</div>
+            <div style="font-size:8.5px;color:#90b8a0;margin-bottom:10px;line-height:1.4;">Base 19°C CTA · Bat. gaine compense · Min 19°C / Max 24°C</div>
+
+            <div class="sim-section-label">Openspace · VEAB CV 25-45-2 · Ø25cm</div>
+            <div class="sim-row"><label>Openspace (100m²)</label>
+              <div class="sim-ctrl"><input type="range" id="t-open" min="19" max="24" step="0.5" value="21" oninput="runSim()"><span class="sim-val" id="vt-open">21°C</span></div></div>
+
+            <div class="sim-section-label" style="margin-top:10px;">SDR · VEAB CV 20-21-1 · Ø20cm (×6)</div>
+            <div class="sim-row"><label>SDR 1 (30m²)</label>
+              <div class="sim-ctrl"><input type="range" id="t-sdr1" min="19" max="24" step="0.5" value="21" oninput="runSim()"><span class="sim-val" id="vt-sdr1">21°C</span></div></div>
+            <div class="sim-row"><label>SDR 2 (30m²)</label>
+              <div class="sim-ctrl"><input type="range" id="t-sdr2" min="19" max="24" step="0.5" value="21" oninput="runSim()"><span class="sim-val" id="vt-sdr2">21°C</span></div></div>
+            <div class="sim-row"><label>SDR 3 (20m²)</label>
+              <div class="sim-ctrl"><input type="range" id="t-sdr3" min="19" max="24" step="0.5" value="21" oninput="runSim()"><span class="sim-val" id="vt-sdr3">21°C</span></div></div>
+            <div class="sim-row"><label>SDR 4 (20m²)</label>
+              <div class="sim-ctrl"><input type="range" id="t-sdr4" min="19" max="24" step="0.5" value="21" oninput="runSim()"><span class="sim-val" id="vt-sdr4">21°C</span></div></div>
+            <div class="sim-row"><label>SDR 5 (30m²)</label>
+              <div class="sim-ctrl"><input type="range" id="t-sdr5" min="19" max="24" step="0.5" value="21" oninput="runSim()"><span class="sim-val" id="vt-sdr5">21°C</span></div></div>
+            <div class="sim-row"><label>SDR 6 (30m²)</label>
+              <div class="sim-ctrl"><input type="range" id="t-sdr6" min="19" max="24" step="0.5" value="21" oninput="runSim()"><span class="sim-val" id="vt-sdr6">21°C</span></div></div>
+
+            <div class="sim-section-label" style="margin-top:10px;">Bureaux · VEAB CV 16-12-1 · Ø16cm (×5)</div>
+            <div class="sim-row"><label>Bureau 1 (30m²)</label>
+              <div class="sim-ctrl"><input type="range" id="t-bur1" min="19" max="24" step="0.5" value="22" oninput="runSim()"><span class="sim-val" id="vt-bur1">22°C</span></div></div>
+            <div class="sim-row"><label>Bureau 2 (30m²)</label>
+              <div class="sim-ctrl"><input type="range" id="t-bur2" min="19" max="24" step="0.5" value="22" oninput="runSim()"><span class="sim-val" id="vt-bur2">22°C</span></div></div>
+            <div class="sim-row"><label>Bureau 3 (30m²)</label>
+              <div class="sim-ctrl"><input type="range" id="t-bur3" min="19" max="24" step="0.5" value="22" oninput="runSim()"><span class="sim-val" id="vt-bur3">22°C</span></div></div>
+            <div class="sim-row"><label>Bureau 4 (30m²)</label>
+              <div class="sim-ctrl"><input type="range" id="t-bur4" min="19" max="24" step="0.5" value="22" oninput="runSim()"><span class="sim-val" id="vt-bur4">22°C</span></div></div>
+            <div class="sim-row"><label>Bureau 5 (30m²)</label>
+              <div class="sim-ctrl"><input type="range" id="t-bur5" min="19" max="24" step="0.5" value="22" oninput="runSim()"><span class="sim-val" id="vt-bur5">22°C</span></div></div>
+
+            <!-- Totaux -->
+            <div style="margin-top:12px;padding-top:10px;border-top:1px solid rgba(0,137,123,.12);">
+              <div class="sim-row" style="border:none;padding:2px 0;">
+                <label>Total bat. gaines</label>
+                <span id="sv-gaines-total" style="font-family:'Share Tech Mono',monospace;font-size:11px;color:#00695c;font-weight:700;">0.0 kW</span>
+              </div>
+              <div class="sim-row" style="border:none;padding:2px 0;">
+                <label>CTA débit</label>
+                <span id="sv-cta-debit-temp" style="font-family:'Share Tech Mono',monospace;font-size:11px;color:#00695c;">—</span>
+              </div>
+              <div class="sim-row" style="border:none;padding:2px 0;">
+                <label>Bat. chaude départ</label>
+                <span id="sv-bch-temp" style="font-family:'Share Tech Mono',monospace;font-size:11px;color:#00695c;">—</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Zone droite : vue globale + onglets par salle -->
+          <div style="display:flex;flex-direction:column;gap:10px;overflow-y:auto;">
+
+            <!-- Onglets par salle — courbe historique -->
+            <div style="background:#fff;border:1px solid rgba(0,137,123,.15);border-radius:4px;padding:12px;">
+              <div style="font-family:'Rajdhani',sans-serif;font-size:12px;color:#00695c;letter-spacing:2px;margin-bottom:8px;">📈 Historique par salle — évolution temps réel</div>
+
+              <!-- Sélecteur de salle -->
+              <div style="display:flex;gap:3px;flex-wrap:wrap;margin-bottom:10px;" id="room-tab-bar">
+                <button class="room-tab active" onclick="selectRoom('Openspace',this)">Openspace</button>
+                <button class="room-tab" onclick="selectRoom('SDR 1',this)">SDR 1</button>
+                <button class="room-tab" onclick="selectRoom('SDR 2',this)">SDR 2</button>
+                <button class="room-tab" onclick="selectRoom('SDR 3',this)">SDR 3</button>
+                <button class="room-tab" onclick="selectRoom('SDR 4',this)">SDR 4</button>
+                <button class="room-tab" onclick="selectRoom('SDR 5',this)">SDR 5</button>
+                <button class="room-tab" onclick="selectRoom('SDR 6',this)">SDR 6</button>
+                <button class="room-tab" onclick="selectRoom('Bureau 1',this)">Bureau 1</button>
+                <button class="room-tab" onclick="selectRoom('Bureau 2',this)">Bureau 2</button>
+                <button class="room-tab" onclick="selectRoom('Bureau 3',this)">Bureau 3</button>
+                <button class="room-tab" onclick="selectRoom('Bureau 4',this)">Bureau 4</button>
+                <button class="room-tab" onclick="selectRoom('Bureau 5',this)">Bureau 5</button>
+              </div>
+
+              <!-- Infos salle active -->
+              <div style="display:flex;gap:16px;margin-bottom:8px;flex-wrap:wrap;" id="room-kpis">
+                <div style="background:#f7fbf8;border:1px solid rgba(0,137,123,.12);border-radius:3px;padding:6px 12px;text-align:center;">
+                  <div style="font-size:8px;color:#4a7a5a;text-transform:uppercase;letter-spacing:1px;">Temp. actuelle</div>
+                  <div id="rk-actual" style="font-family:'Share Tech Mono',monospace;font-size:18px;color:#00695c;font-weight:700;">—</div>
+                </div>
+                <div style="background:#f7fbf8;border:1px solid rgba(0,137,123,.12);border-radius:3px;padding:6px 12px;text-align:center;">
+                  <div style="font-size:8px;color:#4a7a5a;text-transform:uppercase;letter-spacing:1px;">Consigne</div>
+                  <div id="rk-consigne" style="font-family:'Share Tech Mono',monospace;font-size:18px;color:#0277bd;font-weight:700;">—</div>
+                </div>
+                <div style="background:#f7fbf8;border:1px solid rgba(0,137,123,.12);border-radius:3px;padding:6px 12px;text-align:center;">
+                  <div style="font-size:8px;color:#4a7a5a;text-transform:uppercase;letter-spacing:1px;">VEAB gaine</div>
+                  <div id="rk-veab" style="font-family:'Share Tech Mono',monospace;font-size:18px;color:#e65100;font-weight:700;">—</div>
+                </div>
+                <div style="background:#f7fbf8;border:1px solid rgba(0,137,123,.12);border-radius:3px;padding:6px 12px;text-align:center;">
+                  <div style="font-size:8px;color:#4a7a5a;text-transform:uppercase;letter-spacing:1px;">Puissance bat.</div>
+                  <div id="rk-pow" style="font-family:'Share Tech Mono',monospace;font-size:18px;color:#e65100;font-weight:700;">—</div>
+                </div>
+                
+                </div>
+              </div>
+
+              <!-- Graphe courbe historique -->
+              <svg id="chart-room-history" viewBox="0 0 520 160" width="100%"></svg>
+              <div style="display:flex;gap:14px;margin-top:5px;flex-wrap:wrap;">
+                <div style="display:flex;align-items:center;gap:4px;"><div style="width:16px;height:2px;background:#00897b;"></div><span style="font-size:8px;color:#4a7a5a;">Temp. salle</span></div>
+                <div style="display:flex;align-items:center;gap:4px;"><div style="width:16px;height:2px;background:#0277bd;border-top:2px dashed #0277bd;"></div><span style="font-size:8px;color:#4a7a5a;">Consigne thermostat</span></div>
+                <div style="display:flex;align-items:center;gap:4px;"><div style="width:16px;height:2px;background:#e65100;border-top:2px dotted #e65100;"></div><span style="font-size:8px;color:#4a7a5a;">Temp. VEAB gaine</span></div>
+                <div style="display:flex;align-items:center;gap:4px;"><div style="width:16px;height:2px;background:#f5c842;"></div><span style="font-size:8px;color:#4a7a5a;">Soufflage CTA 19°C</span></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ PAGE : ALARMES ═══ -->
+      <div class="sim-page" id="sim-alarmes">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+          <!-- Tableau des alarmes actives simulation -->
+          <div style="background:#fff;border:1px solid rgba(0,137,123,.15);border-radius:4px;padding:14px;">
+            <div style="font-family:'Rajdhani',sans-serif;font-size:12px;color:#c62828;letter-spacing:2px;margin-bottom:10px;">🚨 Alarmes actives — Simulation</div>
+            <div id="sim-alm-list"><div class="sim-alert sim-alert-ok">✅ Aucune alarme active</div></div>
+          </div>
+
+          <!-- Journal des événements -->
+          <div style="background:#fff;border:1px solid rgba(0,137,123,.15);border-radius:4px;padding:14px;">
+            <div style="font-family:'Rajdhani',sans-serif;font-size:12px;color:#00695c;letter-spacing:2px;margin-bottom:10px;">📋 Journal événements</div>
+            <div id="sim-journal" style="max-height:300px;overflow-y:auto;font-family:'Share Tech Mono',monospace;font-size:9px;color:#4a7a5a;line-height:1.8;"></div>
+          </div>
+
+          <!-- Caméras -->
+          <div style="background:#fff;border:1px solid rgba(0,137,123,.15);border-radius:4px;padding:14px;grid-column:1/-1;">
+            <div style="font-family:'Rajdhani',sans-serif;font-size:12px;color:#6a1b9a;letter-spacing:2px;margin-bottom:10px;">📷 Surveillance — 22 caméras</div>
+            <div id="sim-cameras-grid" style="display:grid;grid-template-columns:repeat(10,1fr);gap:6px;"></div>
+            <div style="margin-top:10px;display:flex;gap:16px;font-size:9px;color:#4a7a5a;">
+              <span>Actives : <span id="sim-cam-ok" style="font-family:'Share Tech Mono',monospace;color:#2e7d32;font-weight:700;">20</span></span>
+              <span>Hors ligne : <span id="sim-cam-off" style="font-family:'Share Tech Mono',monospace;color:#c62828;font-weight:700;">0</span></span>
+              <span>Enregistrement : <span style="font-family:'Share Tech Mono',monospace;color:#2e7d32;">✔ EN COURS</span></span>
+              <span>Mode : <span id="sim-cam-mode" style="font-family:'Share Tech Mono',monospace;color:#00695c;">Normal</span></span>
+            </div>
+          </div>
+
+          <!-- SSI -->
+          <div style="background:#fff;border:1px solid rgba(0,137,123,.15);border-radius:4px;padding:14px;">
+            <div style="font-family:'Rajdhani',sans-serif;font-size:12px;color:#c62828;letter-spacing:2px;margin-bottom:10px;">🔥 SSI — Détecteurs incendie</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;" id="sim-ssi-grid"></div>
+          </div>
+
+          <!-- Intrusion -->
+          <div style="background:#fff;border:1px solid rgba(0,137,123,.15);border-radius:4px;padding:14px;">
+            <div style="font-family:'Rajdhani',sans-serif;font-size:12px;color:#6a1b9a;letter-spacing:2px;margin-bottom:10px;">🔒 Contrôle d'accès</div>
+            <div id="sim-intrusion-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:6px;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ PAGE : ÉCLAIRAGE ═══ -->
+      <div class="sim-page" id="sim-eclairage">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+          <div style="background:#fff;border:1px solid rgba(0,137,123,.15);border-radius:4px;padding:14px;grid-column:1/-1;">
+            <div style="font-family:'Rajdhani',sans-serif;font-size:12px;color:#00695c;letter-spacing:2px;margin-bottom:10px;">💡 État éclairage — Zones</div>
+            <div id="sim-light-grid" style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;"></div>
+          </div>
+          <div style="background:#fff;border:1px solid rgba(0,137,123,.15);border-radius:4px;padding:14px;">
+            <div style="font-family:'Rajdhani',sans-serif;font-size:12px;color:#00695c;letter-spacing:2px;margin-bottom:10px;">📊 Capteurs de présence</div>
+            <div id="sim-presence-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:6px;"></div>
+          </div>
+          <div style="background:#fff;border:1px solid rgba(0,137,123,.15);border-radius:4px;padding:14px;">
+            <div style="font-family:'Rajdhani',sans-serif;font-size:12px;color:#00695c;letter-spacing:2px;margin-bottom:8px;">💡 Conso. éclairage</div>
+            <div style="font-family:'Share Tech Mono',monospace;font-size:28px;color:#00695c;" id="sv-light-conso">2.5 kW</div>
+            <div style="font-size:9px;color:#90b8a0;margin-top:4px;">Zones actives × 0.18 kW/zone</div>
+            <div style="margin-top:10px;height:6px;background:#e8f0e8;border-radius:3px;overflow:hidden;"><div id="sv-light-bar" style="height:100%;background:linear-gradient(90deg,#f9a825,#ffd54f);border-radius:3px;width:60%;transition:width .5s;"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ PAGE : CONSOMMATION ═══ -->
+      <div class="sim-page" id="sim-conso">
+        <div style="display:flex;flex-direction:column;gap:14px;">
+          <!-- Graphe camembert SVG -->
+          <div style="background:#fff;border:1px solid rgba(0,137,123,.15);border-radius:4px;padding:14px;">
+            <div style="font-family:'Rajdhani',sans-serif;font-size:12px;color:#00695c;letter-spacing:2px;margin-bottom:10px;">⚡ Répartition consommation</div>
+            <div style="display:flex;gap:12px;align-items:center;">
+              <svg id="chart-conso-pie" viewBox="0 0 260 260" style="flex-shrink:0;width:min(220px,100%);height:auto;"></svg>
+              <div id="pie-legend" style="font-size:10px;line-height:1.8;flex:1;min-width:0;"></div>
+            </div>
+          </div>
+          <!-- Barres par poste -->
+          <div style="background:#fff;border:1px solid rgba(0,137,123,.15);border-radius:4px;padding:14px;">
+            <div style="font-family:'Rajdhani',sans-serif;font-size:12px;color:#00695c;letter-spacing:2px;margin-bottom:10px;">📊 Détail par poste</div>
+            <div id="sim-conso-bars"></div>
+            <div style="margin-top:12px;padding-top:10px;border-top:1px solid rgba(0,137,123,.1);">
+              <div style="display:flex;justify-content:space-between;">
+                <span style="font-family:'Rajdhani',sans-serif;font-size:11px;color:#1b3a2a;letter-spacing:1px;">TOTAL</span>
+                <span style="font-family:'Share Tech Mono',monospace;font-size:16px;color:#00695c;font-weight:700;" id="sv-conso-total">—</span>
+              </div>
+            </div>
+          </div>
+          <!-- Indicateurs UPS -->
+          <div style="background:#fff;border:1px solid rgba(0,137,123,.15);border-radius:4px;padding:14px;">
+            <div style="font-family:'Rajdhani',sans-serif;font-size:12px;color:#0277bd;letter-spacing:2px;margin-bottom:10px;">🔋 UPS & Source</div>
+            <div id="sim-ups-status" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;"></div>
+          </div>
+          <!-- PUE -->
+          <div style="background:#fff;border:1px solid rgba(0,137,123,.15);border-radius:4px;padding:14px;">
+            <div style="font-family:'Rajdhani',sans-serif;font-size:12px;color:#00695c;letter-spacing:2px;margin-bottom:10px;">📈 Indicateurs énergie</div>
+            <div id="sim-energy-kpi" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- TAB: COMPOSANTS -->
+    <div class="tab-content" id="tab-composants">
+      <div style="margin-bottom:12px;">
+        <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:#00695c;letter-spacing:2px;margin-bottom:4px;">📦 LISTE DES COMPOSANTS — Site Quattros</div>
+        <div style="font-size:10px;color:#90b8a0;">Équipements sélectionnés pour le projet HilΩ123 · Données issues du fichier projet</div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">
+
+        <div class="floor-card" style="padding:12px;">
+          <div style="font-family:'Rajdhani',sans-serif;color:#0277bd;font-size:12px;letter-spacing:2px;margin-bottom:10px;border-bottom:1px solid rgba(2,119,189,.2);padding-bottom:5px;">⚡ ÉLECTRIQUE / UPS</div>
+          <div class="point-row"><div class="point-name">UPS 250 kVA<span>Schneider Electric · E3LUPS250KHS · x2 · H197×L60×P85cm</span></div><div class="point-val pv-ok">250 kVA</div></div>
+          <div class="point-row"><div class="point-name">UPS 150 kVA<span>Schneider Electric · GVSUPS150KHS · x2 · H148×L52×P85cm</span></div><div class="point-val pv-ok">150 kVA</div></div>
+          <div class="point-row"><div class="point-name">Batterie 250 kW<span>Schneider Electric · LIBSESMG13IEC · x1 · H197×L65×P58cm</span></div><div class="point-val pv-ok">Autonomie 20min</div></div>
+          <div class="point-row"><div class="point-name">Batterie 150 kW<span>Schneider Electric · LIBSESMG10IEC · x1 · H197×L65×P58cm</span></div><div class="point-val pv-ok">Autonomie 20min</div></div>
+          <div class="point-row"><div class="point-name">Groupe électrogène<span>Secours général · x1</span></div><div class="point-val pv-cyan">Secours</div></div>
+          <div class="point-row"><div class="point-name">Régulateur Modbus<span>GTB · x1</span></div><div class="point-val pv-ok">ECY-650-CO</div></div>
+        </div>
+
+        <div class="floor-card" style="padding:12px;">
+          <div style="font-family:'Rajdhani',sans-serif;color:#2e7d32;font-size:12px;letter-spacing:2px;margin-bottom:10px;border-bottom:1px solid rgba(46,125,50,.2);padding-bottom:5px;">🌬️ CVC / CLIMATISATION</div>
+          <div class="point-row"><div class="point-name">CTA Swegon GOLD RX/HC 12<span>H139×L299×P120cm · x1 — Soufflage 19°C fixe couloirs</span></div><div class="point-val pv-ok">CTA Centrale</div></div>
+          <div class="point-row"><div class="point-name">Groupe froid 240 kW<span>Hitema · SBS 240 · H245×L290×P221cm · x1</span></div><div class="point-val pv-ok">240 kW</div></div>
+          <div class="point-row"><div class="point-name">Armoire clim baies 20 kW<span>Coolnet · CWM20 · H200×L60×P90cm · x12 — 6x20kW+25% marge</span></div><div class="point-val pv-ok">12× 20 kW</div></div>
+          <div class="point-row"><div class="point-name">Armoire clim UPS 30 kW<span>Coolnet · CWM30 · H199×L90×P90cm · x2</span></div><div class="point-val pv-ok">2× 30 kW</div></div>
+          <div class="point-row"><div class="point-name">Armoire clim Batterie 16 kW<span>Coolnet · CWM16 · H200×L60×P60cm · x2</span></div><div class="point-val pv-ok">2× 16 kW</div></div>
+          <div class="point-row"><div class="point-name">Chauffage gaine Openspace<span>VEAB · CV 25-45-2 · Ø25cm · x1 — Batterie chaude</span></div><div class="point-val pv-ok">Batterie chaude</div></div>
+          <div class="point-row"><div class="point-name">Chauffage gaine SDR<span>VEAB · CV 20-21-1 · Ø20cm · x6</span></div><div class="point-val pv-ok">6× SDR</div></div>
+          <div class="point-row"><div class="point-name">Chauffage gaine Bureau<span>VEAB · CV 16-12-1 · Ø16cm · x5</span></div><div class="point-val pv-ok">5× Bureaux</div></div>
+          <div class="point-row"><div class="point-name">Clapet d'air Ø250 Openspace<span>France Air · 61046361 · x1</span></div><div class="point-val pv-ok">Ø250mm</div></div>
+          <div class="point-row"><div class="point-name">Clapet d'air Ø200 SDR<span>France Air · 61046361 · x6</span></div><div class="point-val pv-ok">6× Ø200mm</div></div>
+          <div class="point-row"><div class="point-name">Ballon tampon<span>Circuit hydraulique · x1</span></div><div class="point-val pv-ok">Tampon</div></div>
+          <div class="point-row"><div class="point-name">Sonde température CTA<span>Schneider · CCT15847 · x1</span></div><div class="point-val pv-ok">Entrée CTA</div></div>
+          <div class="point-row"><div class="point-name">Thermostat + sonde Bureaux<span>Schneider · SLPSLXX · H11×L8×P2,4cm · x12</span></div><div class="point-val pv-ok">12× Bureaux/SDR</div></div>
+          <div class="point-row"><div class="point-name">Capteur CO₂<span>SONTAY · GS-CO2-S · H8,5×L8,5×P2,7cm · x7</span></div><div class="point-val pv-ok">7 capteurs</div></div>
+        </div>
+
+        <div class="floor-card" style="padding:12px;">
+          <div style="font-family:'Rajdhani',sans-serif;color:#6a1b9a;font-size:12px;letter-spacing:2px;margin-bottom:10px;border-bottom:1px solid rgba(106,27,154,.2);padding-bottom:5px;">🔒 CFA / SSI / SÉCURITÉ</div>
+          <div class="point-row"><div class="point-name">Caméra IP Pelco<span>IMV229-1ERS · x20 — surveillance 22 caméras</span></div><div class="point-val pv-ok">22 caméras</div></div>
+          <div class="point-row"><div class="point-name">Lecteur de badge Axis<span>A4120-E · x11 — contrôle d'accès</span></div><div class="point-val pv-ok">11 lecteurs</div></div>
+          <div class="point-row"><div class="point-name">Switch PoE Cisco Business 250<span>x6 — infrastructure réseau IP</span></div><div class="point-val pv-ok">6 switchs</div></div>
+          <div class="point-row"><div class="point-name">Interphone Axis I8016-LVE<span>x1 — entrée principale</span></div><div class="point-val pv-ok">Accueil</div></div>
+          <div class="point-row"><div class="point-name">Téléphone Yealink SIP-T58W<span>x1 — poste accueil</span></div><div class="point-val pv-ok">Accueil</div></div>
+          <div class="point-row"><div class="point-name">Alarme intrusion<span>x5 — zones sécurisées</span></div><div class="point-val pv-ok">5 zones</div></div>
+          <div class="point-row"><div class="point-name">Détecteur fumée par aspiration (VESDA)<span>Baies IT uniquement — haute sensibilité</span></div><div class="point-val pv-warn">Baies IT</div></div>
+          <div class="point-row"><div class="point-name">Détecteur fumée classique<span>Couloirs, bureaux, SDR</span></div><div class="point-val pv-ok">Zones communes</div></div>
+          <div class="point-row"><div class="point-name">Porte coupe-feu<span>Compartimentage incendie</span></div><div class="point-val pv-ok">CF 1h/2h</div></div>
+          <div class="point-row"><div class="point-name">Clapet coupe-feu + moteur désenfumage<span>Réseau gaines CTA</span></div><div class="point-val pv-ok">Réseau CTA</div></div>
+          <div class="point-row"><div class="point-name">Luminaire de sécurité (BAES)<span>Toutes zones</span></div><div class="point-val pv-ok">BAES</div></div>
+          <div class="point-row"><div class="point-name">Baie contrôle d'accès<span>Local surveillance R+1</span></div><div class="point-val pv-ok">Local Surv.</div></div>
+        </div>
+
+      </div>
+
+      <!-- Stats équipements -->
+      <div style="margin-top:12px;display:grid;grid-template-columns:repeat(5,1fr);gap:8px;">
+        <div style="background:#fff;border:1px solid rgba(2,119,189,.2);border-radius:4px;padding:10px;text-align:center;">
+          <div style="font-family:'Share Tech Mono',monospace;font-size:22px;color:#0277bd;">250</div>
+          <div style="font-size:9px;color:#4a7a5a;text-transform:uppercase;letter-spacing:1px;">kVA UPS total</div>
+        </div>
+        <div style="background:#fff;border:1px solid rgba(46,125,50,.2);border-radius:4px;padding:10px;text-align:center;">
+          <div style="font-family:'Share Tech Mono',monospace;font-size:22px;color:#2e7d32;">240</div>
+          <div style="font-size:9px;color:#4a7a5a;text-transform:uppercase;letter-spacing:1px;">kW Groupe froid</div>
+        </div>
+        <div style="background:#fff;border:1px solid rgba(230,81,0,.2);border-radius:4px;padding:10px;text-align:center;">
+          <div style="font-family:'Share Tech Mono',monospace;font-size:22px;color:#e65100;">12</div>
+          <div style="font-size:9px;color:#4a7a5a;text-transform:uppercase;letter-spacing:1px;">Armoires clim baies</div>
+        </div>
+        <div style="background:#fff;border:1px solid rgba(106,27,154,.2);border-radius:4px;padding:10px;text-align:center;">
+          <div style="font-family:'Share Tech Mono',monospace;font-size:22px;color:#6a1b9a;">22</div>
+          <div style="font-size:9px;color:#4a7a5a;text-transform:uppercase;letter-spacing:1px;">Caméras IP</div>
+        </div>
+        <div style="background:#fff;border:1px solid rgba(0,137,123,.2);border-radius:4px;padding:10px;text-align:center;">
+          <div style="font-family:'Share Tech Mono',monospace;font-size:22px;color:#00695c;">72</div>
+          <div style="font-size:9px;color:#4a7a5a;text-transform:uppercase;letter-spacing:1px;">Points GTB</div>
+        </div>
+      </div>
+    </div>
+
+
+  <!-- RIGHT PANEL — dynamique, mis à jour par runSim() -->
+  <div class="right-panel">
+    <div class="panel-section">
+      <div class="panel-title">🌡️ Températures</div>
+      <div class="gauge-row">
+        <div class="gauge-label" style="font-size:9px;">Couloirs/CTA</div>
+        <div class="gauge-bar"><div class="gauge-fill" id="rg-cta-bar" style="width:63%;background:linear-gradient(90deg,#0080ff,#00d4ff);"></div></div>
+        <div class="gauge-val" id="rg-cta">19.0°C</div>
+      </div>
+      <div class="gauge-row">
+        <div class="gauge-label" style="font-size:9px;">SDR (consigne)</div>
+        <div class="gauge-bar"><div class="gauge-fill" id="rg-sdr-bar" style="width:72%;background:linear-gradient(90deg,#0080ff,#00d4ff);"></div></div>
+        <div class="gauge-val" id="rg-sdr">22.0°C</div>
+      </div>
+      <div class="gauge-row">
+        <div class="gauge-label" style="font-size:9px;">Bureaux</div>
+        <div class="gauge-bar"><div class="gauge-fill" id="rg-bur-bar" style="width:73%;background:linear-gradient(90deg,#0080ff,#00d4ff);"></div></div>
+        <div class="gauge-val" id="rg-bur">21.8°C</div>
+      </div>
+      <div class="gauge-row">
+        <div class="gauge-label" style="font-size:9px;">Openspace</div>
+        <div class="gauge-bar"><div class="gauge-fill" id="rg-open-bar" style="width:74%;background:linear-gradient(90deg,#0080ff,#00d4ff);"></div></div>
+        <div class="gauge-val" id="rg-open">22.1°C</div>
+      </div>
+      <div class="gauge-row">
+        <div class="gauge-label" style="font-size:9px;">Baies IT</div>
+        <div class="gauge-bar"><div class="gauge-fill" id="rg-baies-bar" style="width:82%;background:linear-gradient(90deg,#ff4400,#ff8c00);"></div></div>
+        <div class="gauge-val" id="rg-baies">24.0°C</div>
+      </div>
+      <div class="gauge-row">
+        <div class="gauge-label" style="font-size:9px;">UPS / Batt.</div>
+        <div class="gauge-bar"><div class="gauge-fill" id="rg-ups-bar" style="width:70%;background:linear-gradient(90deg,#0080ff,#00d4ff);"></div></div>
+        <div class="gauge-val" id="rg-ups">22.1°C</div>
+      </div>
+      <div class="gauge-row">
+        <div class="gauge-label" style="font-size:9px;">Extérieur</div>
+        <div class="gauge-bar"><div class="gauge-fill" id="rg-ext-bar" style="width:30%;background:linear-gradient(90deg,#004488,#0066aa);"></div></div>
+        <div class="gauge-val" id="rg-ext">8.0°C</div>
+      </div>
+    </div>
+
+    <div class="panel-section">
+      <div class="panel-title">💨 Qualité air · CO₂</div>
+      <div class="gauge-row">
+        <div class="gauge-label" style="font-size:9px;">SDR 1–6</div>
+        <div class="gauge-bar"><div class="gauge-fill" id="rg-co2sdr-bar" style="width:42%;background:linear-gradient(90deg,#00aa44,#00ff88);"></div></div>
+        <div class="gauge-val" id="rg-co2sdr">421ppm</div>
+      </div>
+      <div class="gauge-row">
+        <div class="gauge-label" style="font-size:9px;">Openspace</div>
+        <div class="gauge-bar"><div class="gauge-fill" id="rg-co2open-bar" style="width:62%;background:linear-gradient(90deg,#cc6600,#ff8c00);"></div></div>
+        <div class="gauge-val" id="rg-co2open">560ppm</div>
+      </div>
+    </div>
+
+    <div class="panel-section">
+      <div class="panel-title">🌬️ CTA · Batteries chaudes</div>
+      <div class="point-row">
+        <div class="point-name">Bat. chaude départ<span>Vers SDR / thermostat</span></div>
+        <div class="point-val" id="rg-bch">62.0°C</div>
+      </div>
+      <div class="point-row">
+        <div class="point-name">Soufflage CTA<span>Couloirs 19°C fixe</span></div>
+        <div class="point-val pv-cyan">19.0°C</div>
+      </div>
+      <div class="point-row">
+        <div class="point-name">Ventilo-conv. CTA<span>Débit air</span></div>
+        <div class="point-val" id="rg-cvc-state">✔ Actif</div>
+      </div>
+    </div>
+
+    <div class="panel-section">
+      <div class="panel-title">❄️ Climatisation</div>
+      <div class="point-row">
+        <div class="point-name">Clim. Baies IT<span>Armoires froids</span></div>
+        <div class="point-val" id="rg-clim-baies">✔ Active</div>
+      </div>
+      <div class="point-row">
+        <div class="point-name">Clim. UPS/Batt.<span>Armoire froide locale</span></div>
+        <div class="point-val" id="rg-clim-ups">✔ Active</div>
+      </div>
+    </div>
+
+    <div class="panel-section">
+      <div class="panel-title">🔒 Sécurité · CFA</div>
+      <div class="point-row">
+        <div class="point-name">Caméras<span>22 caméras — actives</span></div>
+        <div class="point-val" id="rg-cam">22/22 ✔</div>
+      </div>
+      <div class="point-row">
+        <div class="point-name">Intrusion<span>Local surveillance</span></div>
+        <div class="point-val" id="rg-intru">RAS</div>
+      </div>
+      <div class="point-row">
+        <div class="point-name">Contrôle accès<span>Lecteur badge</span></div>
+        <div class="point-val pv-ok">✔ Actif</div>
+      </div>
+    </div>
+
+    <div class="panel-section">
+      <div class="panel-title">🔥 SSI Incendie</div>
+      <div class="point-row">
+        <div class="point-name">Détect. aspiration<span>Baies IT (VESDA)</span></div>
+        <div class="point-val" id="rg-ssi-baies">✔ Veille</div>
+      </div>
+      <div class="point-row">
+        <div class="point-name">Détect. classiques<span>Couloirs / bureaux</span></div>
+        <div class="point-val" id="rg-ssi-general">✔ Veille</div>
+      </div>
+      <div class="point-row">
+        <div class="point-name">Clapet CF<span>Position repos</span></div>
+        <div class="point-val" id="rg-clapet">✔ Fermé</div>
+      </div>
+      <div class="point-row">
+        <div class="point-name">Secteur / UPS<span>Alimentation</span></div>
+        <div class="point-val" id="rg-secteur">✔ Secteur</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function updateClock(){
+    const now=new Date(),pad=n=>String(n).padStart(2,'0');
+    document.getElementById('clock').textContent=pad(now.getHours())+':'+pad(now.getMinutes())+':'+pad(now.getSeconds());
+    const days=['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+    const months=['Jan','Fév','Mar','Avr','Mai','Jun','Jul','Aoû','Sep','Oct','Nov','Déc'];
+    document.getElementById('date-display').textContent=days[now.getDay()]+' '+now.getDate()+' '+months[now.getMonth()]+' '+now.getFullYear();
+    if(document.getElementById('alm-time'))document.getElementById('alm-time').textContent=pad(now.getHours())+':'+pad(now.getMinutes());
+  }
+  setInterval(updateClock,1000);updateClock();
+
+  function showTab(name){
+    document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(t=>t.classList.remove('active'));
+    document.getElementById('tab-'+name).classList.add('active');
+    const map={plans:'plan',points:'point',alarmes:'alarm',tendances:'tendance',simulation:'simul',composants:'compo'};
+    document.querySelectorAll('.tab').forEach(t=>{if(t.textContent.toLowerCase().includes(map[name]))t.classList.add('active');});
+    document.querySelectorAll('.nav-item').forEach(t=>{if(t.textContent.toLowerCase().includes(map[name]))t.classList.add('active');});
+  }
+
+  setInterval(()=>{
+    document.getElementById('kpi-temp').textContent=(21.3+Math.random()*.6).toFixed(1);
+    document.getElementById('kpi-co2').textContent=(590+Math.random()*50).toFixed(0);
+  },5000);
+
+  /* ══ MOTEUR DE SIMULATION — Physique réaliste ══ */
+  function g(id){return document.getElementById(id);}
+
+  // État interne — valeurs courantes avec inertie thermique
+  const state = {
+    tempBat: 22.0, tempBaies: 24.0, tempUPS: 22.0,
+    co2Sdr: 420, co2Open: 560,
+    bchDepart: 62.0, bchRetour: 48.0,
+    ctaDebit: 100, ctaConso: 8.5,
+    climBConso: 3.2, climUConso: 1.5
+  };
+
+  // ── Historique par salle (circulaire, 80 points max = ~64 secondes à 800ms)
+  const HIST_MAX = 80;
+  const roomNames = ['Openspace','SDR 1','SDR 2','SDR 3','SDR 4','SDR 5','SDR 6',
+                     'Bureau 1','Bureau 2','Bureau 3','Bureau 4','Bureau 5'];
+  const roomHistory = {};
+  roomNames.forEach(n => {
+    roomHistory[n] = { actual:[], consigne:[], veab:[], bat:[], dt:[] };
+  });
+  let activeRoom = 'Openspace';
+
+  function selectRoom(name, btn){
+    activeRoom = name;
+    document.querySelectorAll('.room-tab').forEach(b => b.classList.remove('active'));
+    if(btn) btn.classList.add('active');
+    drawRoomHistory(name);
+  }
+
+  function pushHistory(name, actual, consigne, veab, bat, dt){
+    const h = roomHistory[name];
+    h.actual.push(actual);  h.consigne.push(consigne);
+    h.veab.push(veab);      h.bat.push(bat); h.dt.push(dt);
+    if(h.actual.length > HIST_MAX){
+      h.actual.shift(); h.consigne.shift(); h.veab.shift(); h.bat.shift(); h.dt.shift();
+    }
+  }
+
+  function drawRoomHistory(name){
+    const svg = document.getElementById('chart-room-history');
+    if(!svg) return;
+    const h = roomHistory[name];
+    const n = h.actual.length;
+    if(n < 2){ svg.innerHTML = '<text x="260" y="80" text-anchor="middle" font-size="10" fill="#90b8a0" font-family="Share Tech Mono">En attente de données...</text>'; return; }
+
+    const W=520, H=160, padL=34, padR=10, padT=10, padB=22;
+    const xW = W-padL-padR, yH = H-padT-padB;
+
+    // Calculer min/max y global pour échelle auto
+    const allVals = [...h.actual, ...h.veab, ...h.consigne, 19];
+    const yMin = Math.max(14, Math.floor(Math.min(...allVals)) - 1);
+    const yMax = Math.ceil(Math.max(...allVals)) + 1;
+
+    const toX = i => padL + (i/(n-1))*xW;
+    const toY = v => padT + (1-(v-yMin)/(yMax-yMin))*yH;
+
+    let html = '';
+
+    // Grille
+    const steps = 4;
+    for(let s=0; s<=steps; s++){
+      const v = yMin + s*(yMax-yMin)/steps;
+      const y = toY(v);
+      html += `<line x1="${padL}" y1="${y.toFixed(1)}" x2="${W-padR}" y2="${y.toFixed(1)}" stroke="rgba(0,137,123,.08)" stroke-width="1"/>`;
+      html += `<text x="${padL-3}" y="${(y+3).toFixed(1)}" text-anchor="end" font-size="7" fill="#90b8a0" font-family="Share Tech Mono">${v.toFixed(0)}°</text>`;
+    }
+
+    // Axe X : labels toutes les 16 valeurs
+    const step = Math.max(1, Math.floor(n/5));
+    for(let i=0; i<n; i+=step){
+      const x = toX(i);
+      const secAgo = Math.round((n-1-i)*0.8);
+      html += `<text x="${x.toFixed(1)}" y="${H-4}" text-anchor="middle" font-size="6.5" fill="#90b8a0" font-family="Share Tech Mono">${secAgo>0?'-'+secAgo+'s':'maintenant'}</text>`;
+    }
+
+    // Zone de remplissage temp actuelle
+    const areaPath = h.actual.map((v,i)=>`${toX(i).toFixed(1)},${toY(v).toFixed(1)}`).join(' L ');
+    const areaClose = `L${toX(n-1).toFixed(1)},${toY(yMin).toFixed(1)} L${toX(0).toFixed(1)},${toY(yMin).toFixed(1)} Z`;
+    html += `<path d="M ${areaPath} ${areaClose}" fill="rgba(0,137,123,.08)"/>`;
+
+    // Ligne 19°C CTA (fond jaune)
+    const y19 = toY(19);
+    html += `<line x1="${padL}" y1="${y19.toFixed(1)}" x2="${W-padR}" y2="${y19.toFixed(1)}" stroke="#f5c842" stroke-width="1.5" stroke-dasharray="4,3"/>`;
+
+    // Courbe consigne (bleu pointillé)
+    const cPath = h.consigne.map((v,i)=>`${toX(i).toFixed(1)},${toY(v).toFixed(1)}`).join(' L ');
+    html += `<path d="M ${cPath}" fill="none" stroke="#0277bd" stroke-width="1.5" stroke-dasharray="6,3" opacity="0.8"/>`;
+
+    // Courbe VEAB gaine (orange pointillé)
+    const vPath = h.veab.map((v,i)=>`${toX(i).toFixed(1)},${toY(v).toFixed(1)}`).join(' L ');
+    html += `<path d="M ${vPath}" fill="none" stroke="#e65100" stroke-width="1.5" stroke-dasharray="2,3" opacity="0.8"/>`;
+
+    // Courbe temp actuelle (verte pleine)
+    const tPath = h.actual.map((v,i)=>`${toX(i).toFixed(1)},${toY(v).toFixed(1)}`).join(' L ');
+    html += `<path d="M ${tPath}" fill="none" stroke="#00897b" stroke-width="2"/>`;
+
+    // Point courant
+    const lastX = toX(n-1), lastY = toY(h.actual[n-1]);
+    const lastC = h.actual[n-1] > h.consigne[n-1]+0.3 ? '#e65100' : '#00897b';
+    html += `<circle cx="${lastX.toFixed(1)}" cy="${lastY.toFixed(1)}" r="4" fill="${lastC}" stroke="#fff" stroke-width="1.5"/>`;
+
+    // Axes
+    html += `<line x1="${padL}" y1="${padT}" x2="${padL}" y2="${H-padB}" stroke="rgba(0,137,123,.3)" stroke-width="1"/>`;
+    html += `<line x1="${padL}" y1="${H-padB}" x2="${W-padR}" y2="${H-padB}" stroke="rgba(0,137,123,.3)" stroke-width="1"/>`;
+
+    if(svg) svg.innerHTML = html;
+
+    // Mettre à jour les KPIs de la salle
+    const last = n-1;
+    const rkA = document.getElementById('rk-actual');
+    const rkC = document.getElementById('rk-consigne');
+    const rkV = document.getElementById('rk-veab');
+    const rkP = document.getElementById('rk-pow');
+    if(rkA) rkA.textContent = h.actual[last].toFixed(1)+'°C';
+    if(rkC) rkC.textContent = h.consigne[last].toFixed(1)+'°C';
+    if(rkV) rkV.textContent = h.veab[last].toFixed(1)+'°C';
+    if(rkP) rkP.textContent = h.bat[last].toFixed(2)+' kW';
+  }
+
+
+  function setGauge(barId, valId, val, min, max, color, unit, warn, crit){
+    const pct = Math.min(100, Math.max(0,(val-min)/(max-min)*100));
+    const el = g(barId); if(!el) return;
+    el.style.width = pct+'%';
+    el.style.background = val>=crit
+      ? 'linear-gradient(90deg,#c62828,#ff5252)'
+      : val>=warn
+      ? 'linear-gradient(90deg,#e65100,#ff8c00)'
+      : color;
+    const vEl = g(valId);
+    vEl.textContent = (unit==='ppm') ? Math.round(val)+unit : val.toFixed(1)+unit;
+    vEl.style.color = val>=crit?'#c62828':val>=warn?'#e65100':'#00695c';
+  }
+
+  function runSim(){
+    const text     = +g('s-text').value;
+    const consigne = +g('s-consigne').value;
+    const occ      = +g('s-occ').value;
+    const itLoad   = +g('s-it').value;
+    const camCount = +g('s-cam').value;
+    const intru    = g('s-intru').checked;
+    const fire     = g('s-fire').checked;
+    const secteur  = g('s-secteur').checked;
+    const light    = g('s-light').checked;
+    const cvc      = g('s-cvc').checked;
+    const climB    = g('s-climbaies').checked;
+    const climU    = g('s-climups').checked;
+
+    // Labels sliders
+    g('v-text').textContent     = text+'°C';
+    g('v-consigne').textContent = consigne+'°C';
+    g('v-occ').textContent      = occ;
+    g('v-it').textContent       = itLoad+' kW';
+    g('v-cam').textContent      = camCount+' / 22';
+    g('v-intru').textContent    = intru?'OUI':'NON';  g('v-intru').style.color=intru?'#c62828':'#2e7d32';
+    g('v-fire').textContent     = fire?'OUI':'NON';   g('v-fire').style.color=fire?'#c62828':'#2e7d32';
+    g('v-secteur').textContent  = secteur?'ON':'OFF'; g('v-secteur').style.color=secteur?'#2e7d32':'#c62828';
+    g('v-light').textContent    = light?'ON':'OFF';   g('v-light').style.color=light?'#2e7d32':'#90b8a0';
+    g('v-cvc').textContent      = cvc?'ON':'OFF';     g('v-cvc').style.color=cvc?'#2e7d32':'#c62828';
+    g('v-climbaies').textContent= climB?'ON':'OFF';   g('v-climbaies').style.color=climB?'#2e7d32':'#c62828';
+    g('v-climups').textContent  = climU?'ON':'OFF';   g('v-climups').style.color=climU?'#2e7d32':'#c62828';
+
+    // ── Lecture consignes thermostats pièce par pièce ──────────
+    // Chaque pièce a une consigne ≥ 19°C (soufflage CTA de base)
+    // La batterie gaine compense la différence entre 19°C et la consigne
+    const tOpen_c = +g('t-open').value;
+    const tSdr = [0,
+      +g('t-sdr1').value, +g('t-sdr2').value, +g('t-sdr3').value,
+      +g('t-sdr4').value, +g('t-sdr5').value, +g('t-sdr6').value
+    ];
+    const tBur = [0,
+      +g('t-bur1').value, +g('t-bur2').value, +g('t-bur3').value,
+      +g('t-bur4').value, +g('t-bur5').value
+    ];
+
+    // Update labels thermostats
+    g('vt-open').textContent = tOpen_c+'°C';
+    for(let i=1;i<=6;i++) g('vt-sdr'+i).textContent = tSdr[i]+'°C';
+    for(let i=1;i<=5;i++) g('vt-bur'+i).textContent = tBur[i]+'°C';
+
+    // ── Modèle batterie gaine par pièce ──────────────────────────
+    // Principe VEAB CV ViCi-AL :
+    //   - Air entrant = 19°C (soufflage CTA)
+    //   - Batterie gaine ajoute ΔT = consigne - 19°C
+    //   - Puissance batterie = débit × ρair × Cp × ΔT
+    //   - Débit VEAB CV 25-45-2 (Openspace) ≈ 450 m³/h → 0.125 m³/s
+    //   - Débit VEAB CV 20-21-1 (SDR)       ≈ 210 m³/h → 0.058 m³/s
+    //   - Débit VEAB CV 16-12-1 (Bureaux)   ≈ 120 m³/h → 0.033 m³/s
+    //   - ρ_air × Cp ≈ 1200 J/(m³·K)
+    const rcp = 1200; // J/(m³·K)
+
+    function batGaine(consT, debit_m3s, roomKey) {
+      if(!cvc) {
+        // Sans CVC : la salle dérive lentement vers la temp extérieure
+        if(!state.roomTemp) state.roomTemp = {};
+        if(state.roomTemp[roomKey] === undefined) state.roomTemp[roomKey] = consT;
+        state.roomTemp[roomKey] += (text - state.roomTemp[roomKey]) * 0.02;
+        return {tActual: state.roomTemp[roomKey], pow_kW:0, batOn:false, batPct:0, deltaTC:0};
+      }
+      // Avec CVC : inertie thermique réaliste (tau ≈ 8 min simulé)
+      // La salle se réchauffe lentement vers la consigne (α=0.04 par tick de 800ms)
+      if(!state.roomTemp) state.roomTemp = {};
+      if(state.roomTemp[roomKey] === undefined) state.roomTemp[roomKey] = 19.0;
+      const alpha_room = 0.04; // convergence lente : ~20 ticks pour atteindre 63% de l'écart
+      const deltaTC = Math.max(0, consT - 19.0);
+      const pow_W   = rcp * debit_m3s * deltaTC;
+      const pow_kW  = pow_W / 1000;
+      // Température cible = 19°C + apport batterie * rendement
+      const tTarget = 19.0 + deltaTC * 0.92;
+      // Convergence lente vers la cible
+      state.roomTemp[roomKey] += (tTarget - state.roomTemp[roomKey]) * alpha_room;
+      const tActual = state.roomTemp[roomKey] + (Math.random()-0.5)*0.05;
+      const batPct  = Math.min(100, (deltaTC / 5.0) * 100);
+      return { tActual, pow_kW, batOn: deltaTC>0, batPct, deltaTC };
+    }
+
+    const R_open  = batGaine(tOpen_c, 0.125, 'Openspace');
+    const R_sdr   = tSdr.slice(1).map((t,i) => batGaine(t, 0.058, 'SDR '+(i+1)));
+    const R_bur   = tBur.slice(1).map((t,i) => batGaine(t, 0.033, 'Bureau '+(i+1)));
+
+    // Puissance totale batteries gaines
+    const consoGaines = R_open.pow_kW
+      + R_sdr.reduce((s,r)=>s+r.pow_kW,0)
+      + R_bur.reduce((s,r)=>s+r.pow_kW,0);
+
+    const alpha = 0.18;
+
+    // ── MODELE CTA ──────────────────────────────────────────────
+    // Plus l'écart consigne/extérieur est grand → plus la CTA travaille
+    const deltaT        = consigne - text;           // >0 = chauffe, <0 = rafraîchit
+    const absDelta      = Math.abs(deltaT);
+    const occHeat       = occ * 0.08;               // kW apports internes (80W/pers)
+    const ctaThermalLoad = cvc ? Math.max(0, absDelta * 0.6 + occHeat * 0.4) : 0;
+    // Débit CTA % : 20% mini → 100% si charge max
+    state.ctaDebit = cvc ? Math.min(100, 20 + ctaThermalLoad / 0.12) : 0;
+    // Conso CTA : 3kW débit mini → 18kW plein régime
+    state.ctaConso = cvc ? (3 + state.ctaDebit / 100 * 15) : 0;
+    // Batterie chaude : T_départ monte si froid dehors (loi de compensation)
+    // Grand froid (-10°C) → départ ~75°C | Doux (15°C) → départ ~45°C
+    state.bchDepart = cvc ? Math.min(80, Math.max(35, consigne + deltaT * 1.4)) : 20;
+    state.bchRetour = state.bchDepart - Math.max(10, deltaT * 0.8);
+
+    // ── MODELE BAIES IT ─────────────────────────────────────────
+    // Armoires dimensionnées pour 30kW max → jamais de dépassement critique
+    // 12 armoires × 20kW = 240kW installés (charge max réelle = 80kW)
+    let targetBaies;
+    if(climB){
+      // Armoires bien dimensionnées : T_baies stable même à charge max
+      const surcharge = Math.max(0, itLoad - 16);
+      targetBaies = Math.min(28, 18 + (itLoad/30)*8 + surcharge*0.3);
+      // Conso armoires : monte avec charge IT + légère influence temp ext (COP)
+      const copMalus = Math.max(0, (text - 20) * 0.05);
+      state.climBConso = itLoad * 0.35 + 2 + copMalus * itLoad * 0.02;
+    } else {
+      targetBaies = 22 + itLoad * 1.8;
+      state.climBConso = 0;
+    }
+
+    // ── MODELE UPS ──────────────────────────────────────────────
+    let targetUPS;
+    if(climU){
+      targetUPS = 20 + (itLoad/30) * 5;
+      state.climUConso = 1.2 + itLoad * 0.08;
+    } else {
+      targetUPS = 21 + itLoad * 0.9 + 6;
+      state.climUConso = 0;
+    }
+
+    // ── TEMPERATURE BATIMENT ────────────────────────────────────
+    let targetBat;
+    if(cvc){
+      // CTA tient la consigne ; léger défaut si très grand froid
+      const residuel = Math.max(0, (-text - 5) * 0.03);
+      targetBat = consigne - residuel + occHeat * 0.2;
+      targetBat = Math.max(consigne - 1.5, Math.min(consigne + 1.0, targetBat));
+    } else {
+      targetBat = text + occHeat + (text > consigne ? 2 : 0);
+    }
+
+    // ── CO₂ — ventilation CTA dilue selon débit ─────────────────
+    const ventEff       = cvc ? Math.min(1, state.ctaDebit / 60) : 0;
+    const targetCo2Sdr  = 400 + occ * 2.5 * (1 - ventEff * 0.6);
+    const targetCo2Open = 400 + occ * 4.0 * (1 - ventEff * 0.5);
+
+    // Inertie thermique
+    state.tempBat   += (targetBat   - state.tempBat)   * alpha;
+    state.tempBaies += (targetBaies - state.tempBaies) * alpha;
+    state.tempUPS   += (targetUPS   - state.tempUPS)   * alpha;
+    state.co2Sdr    += (targetCo2Sdr  - state.co2Sdr)  * 0.15;
+    state.co2Open   += (targetCo2Open - state.co2Open) * 0.15;
+
+    const n = ()=>(Math.random()-0.5)*0.06;
+    const tB     = state.tempBat   + n();
+    const tBaies = state.tempBaies + n();
+    const tUPS   = state.tempUPS   + n();
+    const co2S   = state.co2Sdr;
+    const co2O   = state.co2Open;
+    const tCTA   = 19.0;
+    const tSdrMoy  = cvc ? (consigne + n()*0.2) : (text + occ*0.05);
+    const tBurMoy  = cvc ? (consigne - 0.3 + n()*0.2) : (text + occ*0.04);
+    const tOpenMoy = cvc ? (consigne + 0.1 + n()*0.2) : (text + occ*0.07);
+
+    // ── CONSOMMATION TOTALE ──────────────────────────────────────
+    const consoTotal = state.ctaConso
+      + (light ? 2.5 : 0)
+      + itLoad
+      + state.climBConso
+      + state.climUConso
+      + consoGaines
+      + (secteur ? 0.8 : 0)
+      + occ * 0.015;
+
+    // ── PANNEAU DROIT ────────────────────────────────────────────
+    const blue = 'linear-gradient(90deg,#0080ff,#00d4ff)';
+    setGauge('rg-cta-bar','rg-cta',   tCTA,  10,35,blue,'°C',23,26);
+    setGauge('rg-sdr-bar','rg-sdr',   tSdrMoy,  10,35,blue,'°C',24,27);
+    setGauge('rg-bur-bar','rg-bur',   tBurMoy,  10,35,blue,'°C',24,27);
+    setGauge('rg-open-bar','rg-open', tOpenMoy, 10,35,blue,'°C',24,27);
+    setGauge('rg-baies-bar','rg-baies',tBaies,10,40,blue,'°C',25,28);
+    setGauge('rg-ups-bar','rg-ups',   tUPS,  10,40,blue,'°C',26,32);
+    g('rg-ext-bar').style.width = Math.max(2,(text+15)/55*100)+'%';
+    g('rg-ext').textContent = text.toFixed(1)+'°C';
+    g('rg-ext').style.color = text<0?'#0277bd':text>30?'#c62828':'#4a7a5a';
+
+    setGauge('rg-co2sdr-bar','rg-co2sdr', co2S,300,1000,'linear-gradient(90deg,#00aa44,#00ff88)','ppm',600,800);
+    setGauge('rg-co2open-bar','rg-co2open',co2O,300,1000,'linear-gradient(90deg,#00aa44,#00ff88)','ppm',600,800);
+
+    const bchClass = state.bchDepart>50?'pv-ok':state.bchDepart>35?'pv-warn':'pv-off';
+    g('rg-bch').textContent = state.bchDepart.toFixed(1)+'°C'; g('rg-bch').className='point-val '+bchClass;
+    const debitLabel = cvc ? `✔ ${state.ctaDebit.toFixed(0)}% — ${state.ctaConso.toFixed(1)} kW` : '✗ Arrêté';
+    g('rg-cvc-state').textContent = debitLabel;
+    g('rg-cvc-state').className   = 'point-val '+(cvc?(state.ctaDebit>85?'pv-warn':'pv-ok'):'pv-off');
+
+    const climBLabel = climB ? `✔ ${state.climBConso.toFixed(1)} kW (${Math.round(itLoad/30*100)}% ch.)` : '✗ Arrêtée';
+    g('rg-clim-baies').textContent = climBLabel;
+    g('rg-clim-baies').className   = 'point-val '+(climB?'pv-ok':'pv-warn');
+    const climULabel = climU ? `✔ ${state.climUConso.toFixed(1)} kW` : '✗ Arrêtée';
+    g('rg-clim-ups').textContent = climULabel;
+    g('rg-clim-ups').className   = 'point-val '+(climU?'pv-ok':'pv-warn');
+
+    const camOk = camCount===22;
+    g('rg-cam').textContent  = camCount+'/22 '+(camOk?'✔':'⚠'); g('rg-cam').className='point-val '+(camOk?'pv-ok':camCount<15?'pv-err':'pv-warn');
+    g('rg-intru').textContent= intru?'⚠ DÉTECTÉE':'RAS'; g('rg-intru').className='point-val '+(intru?'pv-warn':'pv-ok');
+
+    const fireB = fire && tBaies>26;
+    const fireG = fire && !fireB;
+    g('rg-ssi-baies').textContent   = fireB?'🔥 ALARME VESDA':'✔ Veille'; g('rg-ssi-baies').className='point-val '+(fireB?'pv-err':'pv-ok');
+    g('rg-ssi-general').textContent = fireG?'🔥 ALARME':'✔ Veille'; g('rg-ssi-general').className='point-val '+(fireG?'pv-err':'pv-ok');
+    g('rg-clapet').textContent  = fire?'⚡ OUVERT':'✔ Fermé'; g('rg-clapet').className='point-val '+(fire?'pv-warn':'pv-ok');
+    g('rg-secteur').textContent = secteur?'✔ Secteur':'⚡ Sur UPS'; g('rg-secteur').className='point-val '+(secteur?'pv-ok':'pv-warn');
+
+    // ── TABLEAU TEMPÉRATURES PAR PIÈCE ─────────────────────────
+    if(cvc) {
+      const rooms = [
+        // [nom, type, tConsigne, résultat batterie, couleur badge]
+        ['Openspace',  'Ø25cm VEAB', tOpen_c, R_open],
+        ['SDR 1 (30m²)','Ø20cm VEAB', tSdr[1], R_sdr[0]],
+        ['SDR 2 (30m²)','Ø20cm VEAB', tSdr[2], R_sdr[1]],
+        ['SDR 3 (20m²)','Ø20cm VEAB', tSdr[3], R_sdr[2]],
+        ['SDR 4 (20m²)','Ø20cm VEAB', tSdr[4], R_sdr[3]],
+        ['SDR 5 (30m²)','Ø20cm VEAB', tSdr[5], R_sdr[4]],
+        ['SDR 6 (30m²)','Ø20cm VEAB', tSdr[6], R_sdr[5]],
+        ['Bureau 1',   'Ø16cm VEAB', tBur[1], R_bur[0]],
+        ['Bureau 2',   'Ø16cm VEAB', tBur[2], R_bur[1]],
+        ['Bureau 3',   'Ø16cm VEAB', tBur[3], R_bur[2]],
+        ['Bureau 4',   'Ø16cm VEAB', tBur[4], R_bur[3]],
+        ['Bureau 5',   'Ø16cm VEAB', tBur[5], R_bur[4]]
+      ];
+      const tbl = g('sim-rooms-table');
+      if(tbl) tbl.innerHTML = rooms.map(([nom, mod, tc, R]) => {
+        const batColor = R.batPct > 80 ? '#e65100' : R.batPct > 40 ? '#f9a825' : '#2e7d32';
+        const batBar   = R.batOn
+          ? `<div style="height:4px;background:#e8f0e8;border-radius:2px;margin-top:3px;overflow:hidden;">
+               <div style="width:${R.batPct.toFixed(0)}%;height:100%;background:${batColor};border-radius:2px;transition:width .5s;"></div>
+             </div>`
+          : `<div style="height:4px;background:#eee;border-radius:2px;margin-top:3px;"></div>`;
+        const powTxt = R.batOn
+          ? `<span style="color:${batColor};font-size:8px;font-family:'Share Tech Mono',monospace;">${R.pow_kW.toFixed(2)}kW · ΔT+${R.deltaTC.toFixed(1)}K</span>`
+          : `<span style="color:#90b8a0;font-size:8px;">Bat. au repos (19°C)</span>`;
+        return `<div style="background:#f7fbf8;border:1px solid rgba(0,137,123,.1);border-radius:3px;padding:6px 8px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:9px;font-weight:700;color:#1b3a2a;">${nom}</span>
+            <span style="font-family:'Share Tech Mono',monospace;font-size:10px;color:#00695c;font-weight:700;">${R.tActual.toFixed(1)}°C</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;margin-top:2px;">
+            <span style="font-size:7.5px;color:#90b8a0;">${mod} · consigne ${tc}°C</span>
+            ${powTxt}
+          </div>
+          ${batBar}
+        </div>`;
+      }).join('');
+    } else {
+      const rtFb=g('sim-rooms-table'); if(rtFb) rtFb.innerHTML = '<div style="font-size:9px;color:#c62828;grid-column:1/-1;padding:8px;">CVC arrêté — batteries gaine inactives — temp. non régulée</div>';
+    }
+
+    // ── KPIs ────────────────────────────────────────────────────
+    setKpi('sv-temp',  tB.toFixed(1)+'°C',              tB>=26?'crit':tB<=18?'warn':'');
+    setKpi('sv-co2',   Math.round(co2O)+'ppm',           co2O>800?'crit':co2O>600?'warn':'');
+    setKpi('sv-baies', tBaies.toFixed(1)+'°C',           tBaies>28?'crit':tBaies>25?'warn':'');
+    setKpi('sv-ups',   tUPS.toFixed(1)+'°C',             tUPS>30?'crit':tUPS>26?'warn':'');
+    setKpi('sv-conso', (secteur?consoTotal:0).toFixed(1)+' kW', consoTotal>30?'warn':'');
+    setKpi('sv-cam',   camCount+' / 22',                 camCount<20?camCount<15?'crit':'warn':'');
+
+    // ── ALERTES ─────────────────────────────────────────────────
+    const alerts = [];
+    if(!secteur) alerts.push({lvl:'crit',msg:'⛔ Coupure secteur — UPS 250kVA actif, batteries en décharge (autonomie 20min)'});
+    if(fire){
+      if(fireB) alerts.push({lvl:'crit',msg:'🔥 INCENDIE BAIES — VESDA (aspiration) déclenché — clapets CF ouverts — évacuation'});
+      else      alerts.push({lvl:'crit',msg:'🔥 INCENDIE — Détecteurs optiques déclenchés — clapets CF ouverts — évacuation en cours'});
+    }
+    if(intru) alerts.push({lvl:'crit',msg:'🚨 INTRUSION — 22 caméras en enregistrement renforcé — alerte sécurité transmise'});
+    if(camCount<20) alerts.push({lvl:camCount<15?'crit':'warn',msg:`📷 ${22-camCount} caméra(s) hors ligne — ${camCount}/22 actives`});
+    // CTA : alerte seulement si occupation proche max (>80%) OU temp ext extrême (<-5°C ou >32°C)
+    const ctaHighOcc = occ >= 40;
+    const ctaExtremeTemp = text < -5 || text > 32;
+    if(cvc && state.ctaDebit>85 && (ctaHighOcc || ctaExtremeTemp)){
+      if(ctaHighOcc) alerts.push({lvl:'warn',msg:`🌬️ CTA régime élevé — occupation ${occ}/50 pers. — débit ${state.ctaDebit.toFixed(0)}% — ${state.ctaConso.toFixed(1)} kW`});
+      if(text<-5)    alerts.push({lvl:'warn',msg:`🥶 Grand froid (${text}°C) — CTA sollicitée ${state.ctaDebit.toFixed(0)}% — bat. chaude ${state.bchDepart.toFixed(0)}°C`});
+      if(text>32)    alerts.push({lvl:'warn',msg:`☀️ Canicule (${text}°C) — CTA rafraîchissement ${state.ctaDebit.toFixed(0)}% — ${state.ctaConso.toFixed(1)} kW`});
+    }
+    if(!cvc && occ>5) alerts.push({lvl:'warn',msg:`🌡️ CVC arrêté — ${occ} pers. — dérive thermique vers ${tB.toFixed(1)}°C`});
+    if(tBaies>28) alerts.push({lvl:'crit',msg:`🌡️ Baies IT ${tBaies.toFixed(1)}°C — dépassement seuil — armoires clim saturées`});
+    else if(tBaies>25 && climB) alerts.push({lvl:'warn',msg:`🌡️ Baies IT ${tBaies.toFixed(1)}°C — armoires clim ${Math.round(itLoad/30*100)}% charge (${state.climBConso.toFixed(1)} kW)`});
+    if(!climB && itLoad>0) alerts.push({lvl:'warn',msg:`❄️ Clim. baies OFF — charge ${itLoad}kW non refroidie — montée rapide`});
+    if(tUPS>30) alerts.push({lvl:'crit',msg:`🔋 Local UPS ${tUPS.toFixed(1)}°C — clim UPS saturée`});
+    if(!climU)  alerts.push({lvl:'warn',msg:'❄️ Clim. UPS/Batt. OFF — dérive thermique locale'});
+    if(co2O>800) alerts.push({lvl:'crit',msg:`💨 CO₂ ${Math.round(co2O)}ppm — CTA débit max forcé`});
+    else if(co2O>600) alerts.push({lvl:'warn',msg:`💨 CO₂ ${Math.round(co2O)}ppm — CTA augmente le débit d'air neuf`});
+
+    const alEl=g('sim-alerts-list'); if(alEl) alEl.innerHTML = alerts.length===0
+      ? '<div class="sim-alert sim-alert-ok">✅ Tous systèmes nominaux</div>'
+      : alerts.map(a=>`<div class="sim-alert sim-alert-${a.lvl}">${a.msg}</div>`).join('');
+
+    const bar=g('sim-status-bar');
+    const hasCrit=alerts.some(a=>a.lvl==='crit'), hasWarn=alerts.some(a=>a.lvl==='warn');
+    bar.className='sim-status-bar'+(hasCrit?' crit':hasWarn?' warn':'');
+    g('sim-status-icon').textContent=hasCrit?'🚨':hasWarn?'⚠️':'✅';
+    g('sim-status-text').textContent=hasCrit
+      ?`${alerts.filter(a=>a.lvl==='crit').length} alerte(s) critique(s) — intervention requise`
+      :hasWarn?`${alerts.filter(a=>a.lvl==='warn').length} avertissement(s)`
+      :'Bâtiment opérationnel — tous systèmes nominaux';
+
+    drawChart(tB, tBaies, consigne, text);
+
+    // Mettre à jour les sous-pages
+    updateSimPages({
+      tB, tBaies, tUPS, co2O, consoTotal, state, cvc, light, secteur, occ, itLoad,
+      tOpen_c, tSdr, tBur, R_open, R_sdr, R_bur, consoGaines,
+      climB, climU, intru, fire, camCount, fireB, fireG, alerts
+    });
+
+    const systems=[
+      ['TGBT 1 & 2',        secteur?'✔ 230V':'✗ HS',                    secteur?'ok':'crit'],
+      ['CTA débit',         cvc?state.ctaDebit.toFixed(0)+'%':'✗ Stop',  cvc?(state.ctaDebit>85?'warn':'ok'):'warn'],
+      ['CTA conso.',        cvc?state.ctaConso.toFixed(1)+' kW':'0 kW',  'ok'],
+      ['Bat. chaude départ',state.bchDepart.toFixed(0)+'°C',             state.bchDepart>70?'warn':state.bchDepart>35?'ok':'warn'],
+      ['Bat. gaines conso.',cvc?consoGaines.toFixed(1)+' kW':'0 kW',      consoGaines>4?'warn':'ok'],
+      ['Soufflage couloirs','19.0°C fixe',                                'ok'],
+      ['UPS / Batterie',    secteur?'✔ Secteur':'⚡ Bat.',               secteur?'ok':'warn'],
+      ['Clim. baies IT',    climB?Math.round(itLoad/30*100)+'% — '+state.climBConso.toFixed(1)+'kW':'✗ OFF', climB?'ok':'crit'],
+      ['Clim. UPS/Batt.',   climU?state.climUConso.toFixed(1)+' kW':'✗ OFF', climU?'ok':'warn'],
+      ['Éclairage',         light?'✔ ON':'— OFF',                        light?'ok':'off'],
+      ['Caméras',           camCount+'/22 '+(camOk?'✔':'⚠'),            camOk?'ok':camCount<15?'crit':'warn'],
+      ['VESDA baies',       fireB?'🔥 ALARME':'✔ Veille',               fireB?'crit':'ok'],
+      ['SSI classiques',    fireG?'🔥 ALARME':'✔ Veille',               fireG?'crit':'ok'],
+      ['Conso. totale',     (secteur?consoTotal:0).toFixed(1)+' kW',     consoTotal>30?'warn':'ok']
+    ];
+    const sslEl=g('sim-systems-list'); if(sslEl) sslEl.innerHTML=systems.map(([n,v,c])=>
+      `<div class="sim-sys"><span class="sim-sys-name">${n}</span><span class="sim-sys-val sys-${c}">${v}</span></div>`
+    ).join('');
+    // Mettre à jour les labels SVG du plan
+    updateSVGLabels(tBaies, tUPS, tSdrMoy, tOpenMoy, co2O, co2S, light, cvc, state.bchDepart, consoTotal, climB);
+  }
+  function setKpi(id,val,cls){const el=g(id);el.textContent=val;el.className='sim-kpi-val'+(cls?' '+cls:'');}
+
+  function drawChart(tBat, tBaies, consigne, text){
+    const pathBat = document.getElementById('sim-path-bat');
+    const pathBaies = document.getElementById('sim-path-baies');
+    if(!pathBat || !pathBaies) return;
+    const xMin=40,xMax=555,yMin=10,yMax=120,tMin=14,tMax=30;
+    const toY=t=>yMax-(t-tMin)/(tMax-tMin)*(yMax-yMin);
+    const toX=h=>xMin+(h/12)*(xMax-xMin);
+    // Courbe tenant compte de la temp extérieure sur 12h
+    const pts=[],ptsB=[];
+    for(let h=0;h<=12;h++){
+      // Bâtiment : part de la temp extérieure tôt le matin, monte vers consigne
+      const morning = h<3 ? text*0.4+tBat*0.6 : tBat + Math.sin((h-6)*0.5)*0.4;
+      pts.push([toX(h),toY(Math.min(Math.max(morning,tMin+1),tMax-1))]);
+      // Baies : monte avec la charge sur la journée
+      const b = tBaies - 1.5 + h*0.15 + Math.sin(h*0.9)*0.3;
+      ptsB.push([toX(h),toY(Math.min(Math.max(b,tMin+1),tMax-1))]);
+    }
+    pathBat.setAttribute('d','M '+pts.map(p=>p.join(',')).join(' L '));
+    pathBaies.setAttribute('d','M '+ptsB.map(p=>p.join(',')).join(' L '));
+  }
+
+  function resetSim(){
+    g('s-text').value=8;g('s-consigne').value=22;g('s-occ').value=30;g('s-it').value=8;g('s-cam').value=22;
+    g('s-intru').checked=false;g('s-fire').checked=false;g('s-secteur').checked=true;
+    g('s-light').checked=true;g('s-cvc').checked=true;g('s-climbaies').checked=true;g('s-climups').checked=true;
+    Object.assign(state,{tempBat:22,tempBaies:24,tempUPS:22,co2Sdr:420,co2Open:560,
+      bchDepart:62,bchRetour:48,ctaDebit:100,ctaConso:8.5,climBConso:3.2,climUConso:1.5});
+    // Reset historique et températures par salle
+    roomNames.forEach(n => { roomHistory[n].actual=[]; roomHistory[n].consigne=[]; roomHistory[n].veab=[]; roomHistory[n].bat=[]; roomHistory[n].dt=[]; });
+    if(state.roomTemp) { Object.keys(state.roomTemp).forEach(k => { state.roomTemp[k] = 19.0; }); }
+    // Reset thermostats
+    g('t-open').value=21;
+    for(let i=1;i<=6;i++) g('t-sdr'+i).value=21;
+    for(let i=1;i<=5;i++) g('t-bur'+i).value=22;
+    runSim();
+  }
+
+  /* ══ NAVIGATION SOUS-PAGES SIMULATION ══ */
+  function showSimPage(id){
+    document.querySelectorAll('.sim-page').forEach(p=>p.classList.remove('active'));
+    document.querySelectorAll('.sim-sub').forEach(b=>b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    document.querySelectorAll('.sim-sub').forEach(b=>{
+      if(b.getAttribute('onclick').includes(id)) b.classList.add('active');
+    });
+  }
+
+  /* ══ FONCTIONS GRAPHIQUES ══ */
+
+  // Graphe barres horizontales température par pièce
+  function drawTempChart(rooms){
+    const svg = document.getElementById('chart-temp-rooms');
+    if(!svg || !svg.parentElement) return;
+    const W=560, rowH=18, pad=4, labelW=90, barW=W-labelW-80, yOff=20;
+    const tMin=17, tMax=26;
+    const toX = t => labelW + (t-tMin)/(tMax-tMin)*barW;
+
+    let html = '';
+    // Axes
+    html += `<line x1="${labelW}" y1="0" x2="${labelW}" y2="${yOff+rooms.length*(rowH+pad)}" stroke="rgba(0,137,123,.2)" stroke-width="1"/>`;
+    // Graduations
+    [18,19,20,21,22,23,24,25,26].forEach(t=>{
+      const x=toX(t);
+      html += `<line x1="${x}" y1="0" x2="${x}" y2="${yOff+rooms.length*(rowH+pad)}" stroke="rgba(0,137,123,.07)" stroke-width="1"/>`;
+      html += `<text x="${x}" y="12" text-anchor="middle" font-size="7" fill="#90b8a0">${t}°</text>`;
+    });
+    // Ligne 19°C CTA en surbrillance
+    const x19 = toX(19);
+    html += `<line x1="${x19}" y1="0" x2="${x19}" y2="${yOff+rooms.length*(rowH+pad)}" stroke="#f5c842" stroke-width="1.5" stroke-dasharray="3,3"/>`;
+
+    rooms.forEach(([label, tActual, tConsigne, tVeab, type], i) => {
+      const y = yOff + i*(rowH+pad);
+      // Fond
+      html += `<rect x="${labelW}" y="${y}" width="${barW}" height="${rowH}" fill="rgba(0,137,123,.03)" rx="2"/>`;
+      // Barre température actuelle
+      const x1=toX(19), x2=toX(Math.min(tMax,tActual));
+      const bColor = tActual>24?'#c62828':tActual>22?'#e65100':'#00897b';
+      html += `<rect x="${x1}" y="${y+3}" width="${Math.max(0,x2-x1)}" height="${rowH-6}" fill="${bColor}" rx="2" opacity="0.7"/>`;
+      // Marqueur consigne (tiret bleu)
+      const xC = toX(tConsigne);
+      html += `<line x1="${xC}" y1="${y+1}" x2="${xC}" y2="${y+rowH-1}" stroke="#0277bd" stroke-width="2.5"/>`;
+      // Marqueur VEAB (triangle orange)
+      const xV = toX(tVeab);
+      html += `<polygon points="${xV},${y+rowH-2} ${xV-4},${y+2} ${xV+4},${y+2}" fill="#e65100" opacity="0.8"/>`;
+      // Label
+      html += `<text x="${labelW-4}" y="${y+rowH/2+3}" text-anchor="end" font-size="8" fill="#1b3a2a" font-weight="600">${label}</text>`;
+      // Valeur actuelle
+      html += `<text x="${labelW+barW+4}" y="${y+rowH/2+3}" font-size="8" fill="${bColor}" font-weight="700">${tActual.toFixed(1)}°</text>`;
+    });
+    if(svg) svg.innerHTML = html;
+    if(svg) svg.setAttribute('viewBox', `0 0 ${W} ${yOff+rooms.length*(rowH+pad)+5}`);
+  }
+
+  // Graphe camembert consommation
+  function drawPieChart(postes){
+    const svg = document.getElementById('chart-conso-pie');
+    const legEl = document.getElementById('pie-legend');
+    if(!svg || !svg.parentElement) return;
+    const cx=130,cy=130,r=105;
+    const total = postes.reduce((s,p)=>s+p[1],0);
+    if(total<=0){ svg.innerHTML=''; return; }
+    const colors=['#00897b','#0277bd','#e65100','#6a1b9a','#2e7d32','#c62828','#f9a825','#90a4ae'];
+    let angle=-Math.PI/2, html='', legend='';
+    postes.forEach(([label,val],i)=>{
+      if(val<=0) return;
+      const pct=val/total, dAngle=pct*2*Math.PI;
+      const x1=cx+r*Math.cos(angle), y1=cy+r*Math.sin(angle);
+      const x2=cx+r*Math.cos(angle+dAngle), y2=cy+r*Math.sin(angle+dAngle);
+      const large=dAngle>Math.PI?1:0;
+      html+=`<path d="M${cx},${cy} L${x1.toFixed(1)},${y1.toFixed(1)} A${r},${r} 0 ${large},1 ${x2.toFixed(1)},${y2.toFixed(1)} Z" fill="${colors[i%colors.length]}" stroke="#fff" stroke-width="2"/>`;
+      if(pct>0.06){
+        const mA=angle+dAngle/2, mx=cx+(r*0.65)*Math.cos(mA), my=cy+(r*0.65)*Math.sin(mA);
+        html+=`<text x="${mx.toFixed(0)}" y="${my.toFixed(0)}" text-anchor="middle" font-size="10" fill="#fff" font-weight="700">${(pct*100).toFixed(0)}%</text>`;
+      }
+      legend+=`<div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;"><div style="width:12px;height:12px;border-radius:3px;background:${colors[i%colors.length]};flex-shrink:0;"></div><span style="font-size:10px;color:#4a7a5a;">${label} <span style="font-family:'Share Tech Mono',monospace;font-weight:700;color:#1b3a2a;">${val.toFixed(1)} kW</span></span></div>`;
+      angle+=dAngle;
+    });
+    html+=`<circle cx="${cx}" cy="${cy}" r="44" fill="#fff"/>`;
+    html+=`<text x="${cx}" y="${cy-5}" text-anchor="middle" font-size="9" fill="#90b8a0">TOTAL</text>`;
+    html+=`<text x="${cx}" y="${cy+12}" text-anchor="middle" font-size="15" fill="#00695c" font-weight="700">${total.toFixed(1)}</text>`;
+    html+=`<text x="${cx}" y="${cy+25}" text-anchor="middle" font-size="9" fill="#90b8a0">kW</text>`;
+    if(svg) svg.innerHTML = html;
+    if(legEl) legEl.innerHTML = legend;
+  }
+
+  /* ══ MISE À JOUR SOUS-PAGES depuis runSim ══ */
+  function updateSimPages(data){
+    const {tB,tBaies,tUPS,co2O,consoTotal,state,cvc,light,secteur,occ,itLoad,
+           tOpen_c,tSdr,tBur,R_open,R_sdr,R_bur,consoGaines,
+           climB,climU,intru,fire,camCount,fireB,fireG,alerts} = data;
+
+    // ── PAGE TEMPÉRATURE ────────────────────────────────────────
+    // Graphe barres
+    const rooms = [
+      ['Openspace', R_open.tActual, tOpen_c, tOpen_c, 'Ø25'],
+      ['SDR 1', R_sdr[0].tActual, tSdr[1], tSdr[1], 'Ø20'],
+      ['SDR 2', R_sdr[1].tActual, tSdr[2], tSdr[2], 'Ø20'],
+      ['SDR 3', R_sdr[2].tActual, tSdr[3], tSdr[3], 'Ø20'],
+      ['SDR 4', R_sdr[3].tActual, tSdr[4], tSdr[4], 'Ø20'],
+      ['SDR 5', R_sdr[4].tActual, tSdr[5], tSdr[5], 'Ø20'],
+      ['SDR 6', R_sdr[5].tActual, tSdr[6], tSdr[6], 'Ø20'],
+      ['Bureau 1', R_bur[0].tActual, tBur[1], tBur[1], 'Ø16'],
+      ['Bureau 2', R_bur[1].tActual, tBur[2], tBur[2], 'Ø16'],
+      ['Bureau 3', R_bur[2].tActual, tBur[3], tBur[3], 'Ø16'],
+      ['Bureau 4', R_bur[3].tActual, tBur[4], tBur[4], 'Ø16'],
+      ['Bureau 5', R_bur[4].tActual, tBur[5], tBur[5], 'Ø16']
+    ];
+    // drawTempChart supprimé (vue globale retirée)
+
+    // ── Historique par salle ─────────────────────────────────────
+    const roomData = [
+      {n:'Openspace', actual:R_open.tActual, consigne:tOpen_c, veab:tOpen_c, bat:R_open.pow_kW||0, dt:R_open.deltaTC||0},
+      {n:'SDR 1', actual:R_sdr[0].tActual, consigne:tSdr[1], veab:tSdr[1], bat:R_sdr[0].pow_kW||0, dt:R_sdr[0].deltaTC||0},
+      {n:'SDR 2', actual:R_sdr[1].tActual, consigne:tSdr[2], veab:tSdr[2], bat:R_sdr[1].pow_kW||0, dt:R_sdr[1].deltaTC||0},
+      {n:'SDR 3', actual:R_sdr[2].tActual, consigne:tSdr[3], veab:tSdr[3], bat:R_sdr[2].pow_kW||0, dt:R_sdr[2].deltaTC||0},
+      {n:'SDR 4', actual:R_sdr[3].tActual, consigne:tSdr[4], veab:tSdr[4], bat:R_sdr[3].pow_kW||0, dt:R_sdr[3].deltaTC||0},
+      {n:'SDR 5', actual:R_sdr[4].tActual, consigne:tSdr[5], veab:tSdr[5], bat:R_sdr[4].pow_kW||0, dt:R_sdr[4].deltaTC||0},
+      {n:'SDR 6', actual:R_sdr[5].tActual, consigne:tSdr[6], veab:tSdr[6], bat:R_sdr[5].pow_kW||0, dt:R_sdr[5].deltaTC||0},
+      {n:'Bureau 1', actual:R_bur[0].tActual, consigne:tBur[1], veab:tBur[1], bat:R_bur[0].pow_kW||0, dt:R_bur[0].deltaTC||0},
+      {n:'Bureau 2', actual:R_bur[1].tActual, consigne:tBur[2], veab:tBur[2], bat:R_bur[1].pow_kW||0, dt:R_bur[1].deltaTC||0},
+      {n:'Bureau 3', actual:R_bur[2].tActual, consigne:tBur[3], veab:tBur[3], bat:R_bur[2].pow_kW||0, dt:R_bur[2].deltaTC||0},
+      {n:'Bureau 4', actual:R_bur[3].tActual, consigne:tBur[4], veab:tBur[4], bat:R_bur[3].pow_kW||0, dt:R_bur[3].deltaTC||0},
+      {n:'Bureau 5', actual:R_bur[4].tActual, consigne:tBur[5], veab:tBur[5], bat:R_bur[4].pow_kW||0, dt:R_bur[4].deltaTC||0}
+    ];
+    roomData.forEach(d => pushHistory(d.n, d.actual, d.consigne, d.veab, d.bat, d.dt));
+    drawRoomHistory(activeRoom);
+
+    // Tableau puissance batteries gaine
+    const allRooms = [
+      {n:'Openspace', m:'CV 25-45-2', R:R_open},
+      {n:'SDR 1',m:'CV 20-21-1',R:R_sdr[0]},{n:'SDR 2',m:'CV 20-21-1',R:R_sdr[1]},
+      {n:'SDR 3',m:'CV 20-21-1',R:R_sdr[2]},{n:'SDR 4',m:'CV 20-21-1',R:R_sdr[3]},
+      {n:'SDR 5',m:'CV 20-21-1',R:R_sdr[4]},{n:'SDR 6',m:'CV 20-21-1',R:R_sdr[5]},
+      {n:'Bureau 1',m:'CV 16-12-1',R:R_bur[0]},{n:'Bureau 2',m:'CV 16-12-1',R:R_bur[1]},
+      {n:'Bureau 3',m:'CV 16-12-1',R:R_bur[2]},{n:'Bureau 4',m:'CV 16-12-1',R:R_bur[3]},
+      {n:'Bureau 5',m:'CV 16-12-1',R:R_bur[4]}
+    ];
+    const rt=document.getElementById('sim-rooms-table');
+    if(rt){
+      rt.innerHTML=allRooms.map(({n,m,R})=>{
+        const bc=R.batPct>80?'#e65100':R.batPct>40?'#f9a825':'#2e7d32';
+        return `<div style="background:#f7fbf8;border:1px solid rgba(0,137,123,.1);border-radius:3px;padding:6px 8px;">
+          <div style="display:flex;justify-content:space-between;">
+            <span style="font-size:9px;font-weight:700;color:#1b3a2a;">${n}</span>
+            <span style="font-family:'Share Tech Mono',monospace;font-size:10px;color:#00695c;">${R.tActual.toFixed(1)}°C</span>
+          </div>
+          <div style="font-size:7.5px;color:#90b8a0;">${m}</div>
+          <div style="display:flex;justify-content:space-between;margin-top:2px;">
+            <span style="font-size:7.5px;color:${bc};">${R.batOn?R.pow_kW.toFixed(2)+'kW':'-'}</span>
+            <span style="font-size:7.5px;color:#90b8a0;">${R.batOn?'ΔT+'+R.deltaTC.toFixed(1)+'K':'repos'}</span>
+          </div>
+          <div style="height:3px;background:#eee;border-radius:2px;margin-top:3px;overflow:hidden;">
+            <div style="width:${R.batPct.toFixed(0)}%;height:100%;background:${bc};border-radius:2px;transition:width .4s;"></div>
+          </div>
+        </div>`;
+      }).join('');
+    }
+    const gt=document.getElementById('sv-gaines-total');
+    if(gt) gt.textContent=consoGaines.toFixed(2)+' kW';
+    const cd=document.getElementById('sv-cta-debit-temp');
+    if(cd) cd.textContent=cvc?state.ctaDebit.toFixed(0)+'%':'OFF';
+    const bcht=document.getElementById('sv-bch-temp');
+    if(bcht) bcht.textContent=cvc?state.bchDepart.toFixed(1)+'°C':'—';
+
+    // ── PAGE ALARMES ─────────────────────────────────────────────
+    const almList=document.getElementById('sim-alm-list');
+    if(almList){
+      almList.innerHTML=alerts.length===0
+        ?'<div class="sim-alert sim-alert-ok">✅ Aucune alarme active</div>'
+        :alerts.map(a=>`<div class="sim-alert sim-alert-${a.lvl}">${a.msg}</div>`).join('');
+    }
+
+    // Journal
+    const jour=document.getElementById('sim-journal');
+    if(jour && alerts.length>0){
+      const now=new Date(), ts=now.getHours().toString().padStart(2,'0')+':'+now.getMinutes().toString().padStart(2,'0')+':'+now.getSeconds().toString().padStart(2,'0');
+      alerts.forEach(a=>{
+        const line=`<div style="color:${a.lvl==='crit'?'#c62828':a.lvl==='warn'?'#e65100':'#2e7d32'}">[${ts}] ${a.msg}</div>`;
+        jour.insertAdjacentHTML('afterbegin',line);
+        // Limiter à 30 lignes
+        while(jour.children.length>30) jour.removeChild(jour.lastChild);
+      });
+    }
+
+    // Caméras grid
+    const cg=document.getElementById('sim-cameras-grid');
+    if(cg){
+      cg.innerHTML=Array.from({length:20},(_,i)=>{
+        const ok=i<camCount, intruActive=intru&&ok;
+        const color=!ok?'#c62828':intruActive?'#e65100':'#2e7d32';
+        const bg=!ok?'rgba(198,40,40,.08)':intruActive?'rgba(230,81,0,.08)':'rgba(46,125,50,.06)';
+        return `<div style="background:${bg};border:1px solid ${color};border-radius:4px;padding:6px;text-align:center;">
+          <div style="font-size:14px;">${!ok?'📷':'📷'}</div>
+          <div style="font-size:7px;font-family:'Share Tech Mono',monospace;color:${color};">CAM${String(i+1).padStart(2,'0')}</div>
+          <div style="font-size:7px;color:${color};">${!ok?'OFF':intruActive?'⚠':'REC'}</div>
+        </div>`;
+      }).join('');
+      document.getElementById('sim-cam-ok').textContent=camCount;
+      document.getElementById('sim-cam-off').textContent=22-camCount;
+      document.getElementById('sim-cam-mode').textContent=intru?'ALERTE INTRUSION':camCount<20?'DÉGRADÉ':'Normal';
+      document.getElementById('sim-cam-mode').style.color=intru?'#c62828':camCount<20?'#e65100':'#00695c';
+    }
+
+    // SSI grid
+    const zones=[
+      {z:'Baies 1 (VESDA)',type:'Aspiration',fire:fireB},
+      {z:'Baies 2 (VESDA)',type:'Aspiration',fire:fireB},
+      {z:'Openspace',type:'Optique',fire:fireG},
+      {z:'SDR 1-6',type:'Optique',fire:fireG},
+      {z:'Bureaux 1-5',type:'Optique',fire:fireG},
+      {z:'Couloirs RDC',type:'Optique',fire:fireG},
+      {z:'Couloirs R+1',type:'Optique',fire:fireG},
+      {z:'Local UPS',type:'Optique',fire:fireG},
+      {z:'Local CTA',type:'Optique',fire:fireG},
+      {z:'Parking',type:'Optique',fire:fireG}
+    ];
+    const sg=document.getElementById('sim-ssi-grid');
+    if(sg) sg.innerHTML=zones.map(z=>`
+      <div style="background:${z.fire?'rgba(198,40,40,.06)':'rgba(46,125,50,.04)'};border:1px solid ${z.fire?'#c62828':'rgba(46,125,50,.2)'};border-radius:3px;padding:5px 7px;">
+        <div style="font-size:8px;font-weight:700;color:#1b3a2a;">${z.z}</div>
+        <div style="display:flex;justify-content:space-between;">
+          <span style="font-size:7px;color:#90b8a0;">${z.type}</span>
+          <span style="font-size:7.5px;font-family:'Share Tech Mono',monospace;color:${z.fire?'#c62828':'#2e7d32'};">${z.fire?'🔥 ALARME':'✔ Veille'}</span>
+        </div>
+      </div>`).join('');
+
+    // Intrusion grid
+    const intruZones=[
+      {z:'Entrée principale',badge:true},{z:'Local Surveillance',badge:true},
+      {z:'RDC — Couloirs',badge:false},{z:'R+1 — Couloirs',badge:false},
+      {z:'Baies IT',badge:true},{z:'Local UPS/Batt.',badge:true}
+    ];
+    const ig=document.getElementById('sim-intrusion-grid');
+    if(ig) ig.innerHTML=intruZones.map(z=>`
+      <div style="background:${intru?'rgba(198,40,40,.06)':'rgba(46,125,50,.04)'};border:1px solid ${intru?'rgba(198,40,40,.3)':'rgba(46,125,50,.2)'};border-radius:3px;padding:5px 7px;">
+        <div style="font-size:8px;font-weight:700;color:#1b3a2a;">${z.z}</div>
+        <div style="display:flex;justify-content:space-between;">
+          <span style="font-size:7px;color:#90b8a0;">${z.badge?'Badge+capteur':'Capteur'}</span>
+          <span style="font-size:7.5px;font-family:'Share Tech Mono',monospace;color:${intru?'#c62828':'#2e7d32'};">${intru?'⚠ ALERTE':'✔ RAS'}</span>
+        </div>
+      </div>`).join('');
+
+    // ── PAGE ÉCLAIRAGE ───────────────────────────────────────────
+    const lightZones=[
+      {n:'Stock',       auto:false, mode:'Interrupteur', on:light},
+      {n:'SDR 1',       auto:false, mode:'Interrupteur', on:light},
+      {n:'SDR 2',       auto:false, mode:'Interrupteur', on:light},
+      {n:'SDR 3',       auto:false, mode:'Interrupteur', on:light},
+      {n:'SDR 4',       auto:false, mode:'Interrupteur', on:light},
+      {n:'SDR 5',       auto:false, mode:'Interrupteur', on:light},
+      {n:'SDR 6',       auto:false, mode:'Interrupteur', on:light},
+      {n:'Bureau 1',    auto:false, mode:'Interrupteur', on:light},
+      {n:'Bureau 2',    auto:false, mode:'Interrupteur', on:light},
+      {n:'Bureau 3',    auto:false, mode:'Interrupteur', on:light},
+      {n:'Bureau 4',    auto:false, mode:'Interrupteur', on:light},
+      {n:'Bureau 5',    auto:false, mode:'Interrupteur', on:light},
+      {n:'Openspace',   auto:false, mode:'Interrupteur', on:light},
+      {n:'Couloirs RDC',auto:true,  mode:'Capteur prés.', on:occ>0&&light},
+      {n:'Couloirs R+1',auto:true,  mode:'Capteur prés.', on:occ>0&&light},
+      {n:'Sanitaires',  auto:true,  mode:'Capteur prés.', on:occ>0},
+      {n:'Local UPS',   auto:false, mode:'Interrupteur', on:false},
+      {n:'Local Surv.', auto:false, mode:'Interrupteur', on:true},
+      {n:'Local CTA',   auto:false, mode:'Interrupteur', on:false},
+      {n:'Baies IT',    auto:false, mode:'Interrupteur', on:true}
+    ];
+    const lg=document.getElementById('sim-light-grid');
+    if(lg) lg.innerHTML=lightZones.map(z=>`
+      <div style="background:${z.on?'rgba(249,168,37,.1)':'rgba(144,184,160,.08)'};border:1px solid ${z.on?'#f9a825':'rgba(144,184,160,.3)'};border-radius:4px;padding:8px;text-align:center;transition:all .3s;">
+        <div style="font-size:20px;">${z.on?'💡':'🔲'}</div>
+        <div style="font-size:9px;font-weight:700;color:#1b3a2a;margin-top:3px;">${z.n}</div>
+        <div style="font-size:8px;color:#90b8a0;margin-top:1px;">${z.mode}</div>
+        <div style="font-size:8px;font-family:'Share Tech Mono',monospace;color:${z.on?'#e65100':'#90b8a0'};margin-top:2px;font-weight:700;">${z.on?'ON':'OFF'}</div>
+      </div>`).join('');
+
+    const presZones=[
+      {n:'Openspace',p:occ>5},{n:'SDR 1-6',p:occ>5},
+      {n:'Bureaux 1-5',p:occ>0},{n:'Couloirs',p:occ>0},
+      {n:'Sanitaires',p:occ>5},{n:'Cafétariat',p:occ>15}
+    ];
+    const pg=document.getElementById('sim-presence-grid');
+    if(pg) pg.innerHTML=presZones.map(z=>`
+      <div style="background:${z.p?'rgba(0,137,123,.06)':'#fafafa'};border:1px solid ${z.p?'rgba(0,137,123,.25)':'rgba(0,137,123,.1)'};border-radius:3px;padding:5px 7px;">
+        <div style="display:flex;justify-content:space-between;">
+          <span style="font-size:8px;font-weight:700;color:#1b3a2a;">${z.n}</span>
+          <span style="font-size:7.5px;font-family:'Share Tech Mono',monospace;color:${z.p?'#00695c':'#90b8a0'};">${z.p?'✔ Présence':'Absent'}</span>
+        </div>
+      </div>`).join('');
+
+    const lightOn=lightZones.filter(z=>z.on).length;
+    const lightConso=lightOn*0.18;
+    const lc=document.getElementById('sv-light-conso'); if(lc) lc.textContent=lightConso.toFixed(2)+' kW';
+    const lb=document.getElementById('sv-light-bar'); if(lb) lb.style.width=(lightConso/3*100)+'%';
+
+    // ── PAGE CONSOMMATION ────────────────────────────────────────
+    const postes=[
+      ['CTA / CVC',    cvc?state.ctaConso:0],
+      ['Bat. gaines',  consoGaines],
+      ['Clim. baies',  state.climBConso],
+      ['Clim. UPS',    state.climUConso],
+      ['IT / Baies',   itLoad],
+      ['Éclairage',    lightConso],
+      ['Occupation',   occ*0.015],
+      ['Auxiliaires',  secteur?0.8:0]
+    ].filter(p=>p[1]>0);
+
+    drawPieChart(postes);
+
+    const cb=document.getElementById('sim-conso-bars');
+    const maxVal=Math.max(...postes.map(p=>p[1]),1);
+    const colors2=['#00897b','#2e7d32','#0277bd','#5c6bc0','#e65100','#f9a825','#90a4ae','#78909c'];
+    if(cb) cb.innerHTML=postes.map(([l,v],i)=>`
+      <div style="margin-bottom:7px;">
+        <div style="display:flex;justify-content:space-between;margin-bottom:2px;">
+          <span style="font-size:9px;color:#4a7a5a;">${l}</span>
+          <span style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#1b3a2a;">${v.toFixed(2)} kW</span>
+        </div>
+        <div style="height:8px;background:#f0f9f3;border-radius:4px;overflow:hidden;">
+          <div style="width:${(v/maxVal*100).toFixed(1)}%;height:100%;background:${colors2[i%colors2.length]};border-radius:4px;transition:width .5s;"></div>
+        </div>
+      </div>`).join('');
+
+    const ct=document.getElementById('sv-conso-total'); if(ct) ct.textContent=consoTotal.toFixed(1)+' kW';
+
+    const ups=document.getElementById('sim-ups-status');
+    const pueVal = itLoad>0 ? ((consoTotal)/(itLoad+0.001)).toFixed(2) : '—';
+    if(ups) ups.innerHTML=[
+      ['Source',     secteur?'✔ Secteur':'⚡ Batterie', secteur?'#2e7d32':'#e65100'],
+      ['UPS 250kVA', secteur?'En attente':'⚡ ACTIF',    secteur?'#2e7d32':'#c62828'],
+      ['Autonomie',  secteur?'—':'20 min max',           '#0277bd'],
+      ['Tension',    secteur?'230V':'On Bat.',           '#00695c']
+    ].map(([l,v,c])=>`
+      <div style="background:#f7fbf8;border:1px solid rgba(0,137,123,.12);border-radius:3px;padding:7px 10px;">
+        <div style="font-size:8px;color:#4a7a5a;">${l}</div>
+        <div style="font-family:'Share Tech Mono',monospace;font-size:11px;font-weight:700;color:${c};">${v}</div>
+      </div>`).join('');
+
+    const ek=document.getElementById('sim-energy-kpi');
+    if(ek) ek.innerHTML=[
+      ['PUE estimé',      pueVal,                 '#0277bd'],
+      ['kW IT',           itLoad.toFixed(1)+' kW','#e65100'],
+      ['kW CVC/Clim',     (state.ctaConso+state.climBConso+state.climUConso+consoGaines).toFixed(1)+' kW','#00897b'],
+      ['Ratio IT/Total',  itLoad>0?(itLoad/consoTotal*100).toFixed(0)+'%':'—','#6a1b9a']
+    ].map(([l,v,c])=>`
+      <div style="background:#f7fbf8;border:1px solid rgba(0,137,123,.12);border-radius:3px;padding:7px 10px;">
+        <div style="font-size:8px;color:#4a7a5a;">${l}</div>
+        <div style="font-family:'Share Tech Mono',monospace;font-size:11px;font-weight:700;color:${c};">${v}</div>
+      </div>`).join('');
+  }
+
+  // ── Mise à jour labels SVG plans (connectés à la simulation) ──
+  function updateSVGLabels(tBaies, tUPS, tSdrMoy, tOpenMoy, co2O, co2S, light, cvc, bchDepart, consoTotal, climB){
+    const n = ()=>(Math.random()-0.5)*0.12;
+    const sv=(id,txt,col)=>{const e=document.getElementById(id);if(!e)return;e.textContent=txt;if(col)e.setAttribute('fill',col);};
+    const clamp=(v,lo=19,hi=24)=>Math.min(hi,Math.max(lo,v));
+    const l=light?'💡 ON':'💡 OFF';
+    const co2r=()=>Math.round(Math.max(400,co2S+n()*40));
+    const co2Bcol=(v)=>v>700?'#c62828':'#004400';
+
+    // Baies IT — temp + indicateur clim
+    const tB1=tBaies+n(), tB2=tBaies-0.5+n();
+    sv('svg-baies1',tB1>27?`⚠ ${tB1.toFixed(1)}°C ↑ Refroid. actif`:`✔ ${tB1.toFixed(1)}°C`,tB1>27?'#c62828':'#006600');
+    sv('svg-baies2',tB2>27?`⚠ ${tB2.toFixed(1)}°C`:`${tB2.toFixed(1)}°C`,tB2>27?'#c62828':'#006600');
+    // Indicateur climatisation baies : 6 armoires, 5 requises (1 en redondance)
+    const climOk = typeof climB !== 'undefined' ? climB : true;
+    const climTxt = climOk ? '❄ 6/6 actives — redond. ✔' : '⚠ Clim. insuffisante';
+    const climCol = climOk ? '#004400' : '#c62828';
+    sv('svg-baies1-clim', climTxt, climCol);
+    sv('svg-baies2-clim', climTxt, climCol);
+    // UPS et locaux techniques → lumière + temp
+    sv('svg-ups',`💡 ON | ${tUPS.toFixed(1)}°C`,'#004400');
+    sv('svg-tgbt1',`💡 ON | ${clamp(tSdrMoy-0.5+n()).toFixed(0)}°C`,'#004400');
+    sv('svg-tgbt2',`💡 ON | ${clamp(tSdrMoy-0.3+n()).toFixed(0)}°C`,'#004400');
+    sv('svg-batterie',`💡 ON | ${clamp(19.8+n()*0.3,19,22).toFixed(1)}°C`,'#004400');
+    sv('svg-surv',`💡 ON | ${clamp(tSdrMoy+n()).toFixed(1)}°C`,'#004400');
+    // Stock ≥ 19°C
+    sv('svg-stock',`${l}  |  🌡️ ${clamp(19.5+n()*0.5,19,22).toFixed(1)}°C`,'#333');
+    // CTA
+    sv('svg-cta',`Ch ${bchDepart.toFixed(0)}°C | Fr 8°C | ✔`,'#004400');
+    // Couloirs — capteur présence + 19°C fixe CTA
+    const lCouloir = light ? '💡 Auto ON' : '💡 Auto OFF';
+    sv('svg-couloir-rdc', `${lCouloir} | 19.0°C`, '#7a5a3a');
+    sv('svg-couloir-r1',  `${lCouloir} | 19.0°C`, '#7a5a3a');
+    // SDR / Salles de réunion → temp + CO₂ + lumière
+    sv('svg-sdr1',`${clamp(tSdrMoy+n()).toFixed(1)}°C | CO₂ ${co2r()}ppm`,'#004400');
+    sv('svg-sdr2',`${clamp(tSdrMoy-0.1+n()).toFixed(1)}°C | CO₂ ${co2r()}ppm`,'#004400');
+    sv('svg-sdr3',`${clamp(tSdrMoy-0.3+n()).toFixed(1)}°C | CO₂ ${co2r()}ppm`,'#004400');
+    sv('svg-sdr4',`${clamp(tSdrMoy+0.2+n()).toFixed(1)}°C | CO₂ ${co2r()}ppm`,'#004400');
+    sv('svg-sdr5',`${clamp(tSdrMoy-0.1+n()).toFixed(1)}°C | CO₂ ${co2r()}ppm`,'#004400');
+    sv('svg-sdr6',`${clamp(tSdrMoy+0.3+n()).toFixed(1)}°C | CO₂ ${co2r()}ppm`,'#004400');
+    // Cafétariat → temp + CO₂ + lumière
+    const co2cafe=Math.round(Math.max(400,co2S+30+n()*50));
+    sv('svg-cafe',`${clamp(tSdrMoy+0.1+n()).toFixed(1)}°C | CO₂ ${co2cafe}ppm`,'#004400');
+    // Openspace → temp + lumière SANS CO₂ (CO₂ retiré du plan)
+    sv('svg-open-temp',`${clamp(tOpenMoy+n()).toFixed(1)}°C | ${l}`,'#004400');
+    // Bureaux → temp + lumière SANS CO₂
+    sv('svg-bur1-temp',`${clamp(tSdrMoy+0.1+n()).toFixed(1)}°C | ${l}`,'#004400');
+    sv('svg-bur2-temp',`${clamp(tSdrMoy-0.2+n()).toFixed(1)}°C | ${l}`,'#004400');
+    sv('svg-bur3',`${clamp(tSdrMoy-0.2+n()).toFixed(1)}°C | ${l}`,'#004400');
+    sv('svg-bur4',`${clamp(tSdrMoy+0.1+n()).toFixed(1)}°C | ${l}`,'#004400');
+    sv('svg-bur5',`${clamp(tSdrMoy+0.3+n()).toFixed(1)}°C | ${l}`,'#004400');
+  }
+
+  // Tick temps réel : toutes les 800ms pour voir les changements rapidement
+  setInterval(runSim, 800);
+
+  // Init simulation
+  runSim();
+
+  /* ══ LISTE DE POINTS GTB — données réelles issues du fichier Excel ══ */
+  const POINTS = JSON.parse(`[
+    ["CFO","RDC","TGBT 1","Présence tension","ToR","ECY-650-CO","✔","","","","",1,"UI1","✔ 230V"],
+    ["CFO","RDC","TGBT 1","Synthèse défaut","ToR","ECY-650-CO","","✔","","","",2,"UI2","✔ Sans défaut"],
+    ["CFO","RDC","TGBT 1","Arrêt d'urgence","ToR","ECY-650-CO","✔","","","","",3,"UI3","✔ Relâché"],
+    ["CFO","RDC","TGBT 1","Télécommande éclairage","ToR","ECY-650-CO","","✔","","","",4,"UI4","OFF"],
+    ["CFO","RDC","TGBT 1","Position M/A éclairage","ToR","ECY-650-CO","","✔","","","",5,"UI5","ON"],
+    ["CFO","RDC","TGBT 1","Commande M/A éclairage","ToR","ECY-650-CO","","","✔","","",6,"UI6","✔ Actif"],
+    ["CFO","RDC","TGBT 1","Comptage éclairage","Analogique","ECY-650-CO","","","","✔","",7,"UI7","2.4 kWh"],
+    ["CFO","R+1","TGBT 2","Présence tension","ToR","ECY-650-CO","✔","","","","",8,"UI8","✔ 230V"],
+    ["CFO","R+1","TGBT 2","Synthèse défaut","ToR","ECY-650-CO","","✔","","","",9,"UI9","✔ Sans défaut"],
+    ["CFO","R+1","TGBT 2","Arrêt d'urgence","ToR","ECY-650-CO","✔","","","","",10,"UI10","✔ Relâché"],
+    ["CFO","R+1","TGBT 2","Télécommande éclairage","ToR","ECY-650-CO","","✔","","","",11,"UI11","ON"],
+    ["CFO","R+1","TGBT 2","Position M/A éclairage","ToR","ECY-650-CO","","✔","","","",12,"UI12","ON"],
+    ["CFO","R+1","TGBT 2","Commande M/A éclairage","ToR","ECY-650-CO","","","✔","","",13,"UI13","✔ Actif"],
+    ["CFO","R+1","TGBT 2","Comptage éclairage","Analogique","ECY-650-CO","","","","✔","",14,"UI14","1.8 kWh"],
+    ["CFO","RDC","Stock","Télécommande éclairage","ToR","ECY-650-CO","","✔","","","",15,"UI15","OFF"],
+    ["CFO","RDC","Stock","Position M/A éclairage","ToR","ECY-650-CO","","✔","","","",16,"UI16","OFF"],
+    ["CFO","RDC","Stock","Commande M/A éclairage","ToR","ECY-650-CO","","","✔","","",1,"UI1","✔ Actif"],
+    ["CFO","RDC","Stock","Comptage éclairage","Analogique","ECY-650-CO","","","","✔","",2,"UI2","0.2 kWh"],
+    ["CFO","RDC","SDR 1-6","Télécommande éclairage","ToR","ECY-650-CO","","✔","","","",3,"UI3","ON"],
+    ["CFO","RDC","SDR 1-6","Position M/A éclairage","ToR","ECY-650-CO","","✔","","","",4,"UI4","ON"],
+    ["CFO","RDC","SDR 1-6","Commande M/A éclairage","ToR","ECY-650-CO","","","✔","","",5,"UI5","✔ Actif"],
+    ["CFO","RDC","SDR 1-6","Comptage éclairage","Analogique","ECY-650-CO","","","","✔","",6,"UI6","1.6 kWh"],
+    ["CVCD","RDC","SDR 1-6","Capteur CO2","Analogique","ECY-650-CO","","","","✔","",7,"UI7","421 ppm"],
+    ["CVCD","RDC","SDR 1-6","Telecommande clapet air","Analogique","ECY-650-CO","","","","","✔",8,"UI8","✔ Ouvert"],
+    ["CVCD","RDC","SDR 1-6","Capteur temperature","Analogique","ECY-650-CO","","","","✔","",9,"UI9","21.5 C"],
+    ["CVCD","RDC","SDR 1-6","Telecommande temperature","Analogique","ECY-650-CO","","","","","✔",10,"UI10","22.0 C"],
+    ["CFO","RDC","Baies 1-2","Presence tension","ToR","ECY-650-CO","✔","","","","",10,"UI11","✔ 230V"],
+    ["CFO","RDC","Baies 1-2","Synthese defaut","ToR","ECY-650-CO","","✔","","","",11,"UI12","✔ Sans def."],
+    ["CFO","RDC","Baies 1-2","Arret urgence","ToR","ECY-650-CO","✔","","","","",12,"UI13","✔ Relache"],
+    ["CFO","RDC","Baies 1-2","Telecommande eclairage","ToR","ECY-650-CO","","✔","","","",13,"UI14","ON"],
+    ["CFO","RDC","Baies 1-2","Position M/A eclairage","ToR","ECY-650-CO","","✔","","","",14,"UI15","ON"],
+    ["CFO","RDC","Baies 1-2","Fonctionnement sur batterie","ToR","ECY-650-CO","✔","","","","",15,"UI16","✔ Secteur"],
+    ["CFO","RDC","Baies 1-2","Commande basculement batterie","ToR","ECY-650-CO","","","✔","","",1,"UI1","✔ Actif"],
+    ["CFO","RDC","Baies 1-2","Etat alimentation TGHQ","ToR","ECY-650-CO","","✔","","","",2,"UI2","✔ OK"],
+    ["CFO","RDC","Baies 1-2","Etat alimentation baies","Analogique","ECY-650-CO","","","","✔","",3,"UI3","4.1 kW"],
+    ["CFO","RDC","Baies 1-2","Capteur temp. local","Analogique","ECY-650-CO","","","","✔","",4,"UI4","28.4 C"],
+    ["CFO","RDC","Baies 1-2","Commande refroidissement","Analogique","ECY-650-CO","","","","","✔",5,"UI5","✔ Actif"],
+    ["CFA","R+1","Local Surveillance","Arret urgence surveillance","ToR","ECY-650-CO","✔","","","","",6,"UI6","✔ Relache"],
+    ["CFA","R+1","Local Surveillance","Alarme intrusion","ToR","ECY-650-CO","✔","","","","",7,"UI7","✔ RAS"],
+    ["CFA","R+1","Local Surveillance","Alarme porte","ToR","ECY-650-CO","✔","","","","",8,"UI8","✔ Fermee"],
+    ["CFA","R+1","Local Surveillance","Commande deverrouillage","ToR","ECY-650-CO","","","✔","","",9,"UI9","✔ Verrouille"],
+    ["CFA","R+1","Local Surveillance","Capteur de presence","ToR","ECY-650-CO","","✔","","","",10,"UI10","✔ Detecte"],
+    ["CFA","R+1","Local Surveillance","Lecteur de badge","ToR","ECY-650-CO","","✔","","","",11,"UI11","✔ Actif"],
+    ["CFA","R+1","Local Surveillance","Synthese etat porte","ToR","ECY-650-CO","","✔","","","",12,"UI12","✔ OK"],
+    ["CFA","R+1","Local Surveillance","Synthese defaut camera","ToR","ECY-650-CO","✔","","","","",13,"UI13","✔ 22/22"],
+    ["CFA","R+1","Local Surveillance","Commande enregistrement","ToR","ECY-650-CO","","","✔","","",14,"UI14","✔ En cours"],
+    ["CFA","R+1","SSI","Presence tension reseau SSI","ToR","ECY-650-CO","✔","","","","",15,"UI15","✔ 230V"],
+    ["CFO","RDC","SSI","Arret urgence SSI","ToR","ECY-650-CO","✔","","","","",16,"UI16","✔ Relache"],
+    ["CFA","R+1","SSI","Synthese alarme incendie","ToR","ECY-650-CO","✔","","","","",1,"UI1","✔ Pas alarme"],
+    ["CFA","R+1","SSI","Position clapet CF","ToR","ECY-650-CO","","✔","","","",2,"UI2","✔ Ferme"],
+    ["CFA","R+1","SSI","Defaut capteur incendie TE","ToR","ECY-650-CO","✔","","","","",3,"UI3","✔ OK"],
+    ["CFA","R+1","SSI","Alarme feu","ToR","ECY-650-CO","✔","","","","",4,"UI4","✔ Pas alarme"],
+    ["CFA","R+1","SSI","Defaut alarme incendie","ToR","ECY-650-CO","✔","","","","",5,"UI5","✔ OK"],
+    ["CFA","R+1","SSI","Commande clapet CF","ToR","ECY-650-CO","","","✔","","",6,"UI6","Repos"],
+    ["CFA","R+1","SSI","Defaut clapet CF","ToR","ECY-650-CO","✔","","","","",7,"UI7","✔ OK"],
+    ["CFA","RDC","Local UPS","Synthese defaut","ToR","ECY-650-CO","✔","","","","",8,"UI8","✔ Sans def."],
+    ["CFA","RDC","Local UPS","Temperature locale","Analogique","ECY-650-CO","","","","✔","",9,"UI9","22.1 C"],
+    ["CFO","RDC","Local UPS","Presence tension","ToR","ECY-650-CO","✔","","","","",10,"UI10","✔ 230V"],
+    ["CFO","RDC","Local UPS","Arret urgence","ToR","ECY-650-CO","✔","","","","",11,"UI11","✔ Relache"],
+    ["CFO","RDC","Local UPS","Telecommande eclairage","ToR","ECY-650-CO","","✔","","","",12,"UI12","OFF"],
+    ["CFO","RDC","Local UPS","Commande M/A eclairage","ToR","ECY-650-CO","","","✔","","",14,"UI14","✔ Actif"],
+    ["CFO","RDC","Local UPS","Comptage eclairage","Analogique","ECY-650-CO","","","","✔","",15,"UI15","0.1 kWh"],
+    ["CFA","RDC","Local UPS","Telecommande source","ToR","ECY-650-CO","","","✔","","",16,"UI16","✔ Actif"],
+    ["CVCD","RDC","Local UPS","Capteur temperature","Analogique","ECY-650-CO","","","","✔","",1,"UI1","22.1 C"],
+    ["CVCD","RDC","Local UPS","Telecommande temperature","Analogique","ECY-650-CO","","","","","✔",2,"UI2","22.0 C"],
+    ["CVCD","RDC","Local CTA","Batterie chaude","Analogique","ECY-650-CO","","","","✔","",9,"UI9","62.0 C"],
+    ["CVCD","RDC","Local CTA","Batterie froide","Analogique","ECY-650-CO","","","","✔","",10,"UI10","8.2 C"],
+    ["CVCD","RDC","Local CTA","Batterie chaude gaine","Analogique","ECY-650-CO","","","","✔","",11,"UI11","18.5 C"],
+    ["CVCD","RDC","Local CTA","Ventilo-convecteur","Analogique","ECY-650-CO","","","","","✔",12,"UI12","✔ Actif"],
+    ["CVCD","RDC","Local CTA","Capteur exterieur","Analogique","ECY-650-CO","","","","✔","",13,"UI13","8.4 C"],
+    ["CVCD","RDC","Local CTA","Regulateur bat. chaude","Analogique","ECY-650-CO","","","","","✔",14,"UI14","Auto 62C"],
+    ["CVCD","RDC","Local CTA","Regulateur bat. froide","Analogique","ECY-650-CO","","","","","✔",15,"UI15","Auto 8C"],
+    ["CFA","RDC","Local Batterie","Synthese defaut","ToR","ECY-650-CO","✔","","","","",16,"UI16","✔ Sans def."],
+    ["CFO","RDC","Local Batterie","Presence tension","ToR","ECY-650-CO","✔","","","","",1,"UI1","✔ 230V"],
+    ["CFO","RDC","Local Batterie","Arret urgence","ToR","ECY-650-CO","✔","","","","",2,"UI2","✔ Relache"],
+    ["CVCD","RDC","Local Batterie","Capteur temperature","Analogique","ECY-650-CO","","","","✔","",7,"UI7","19.8 C"],
+    ["CVCD","RDC","Local Batterie","Telecommande temperature","Analogique","ECY-650-CO","","","","","✔",8,"UI8","Auto"]
+]`);
+
+  const lotColors = {CFO:'lot-cfo', CVCD:'lot-cvcd', CFA:'lot-cfa', SSI:'lot-ssi', 'SSI':'lot-ssi'};
+
+  function renderPoints(filter='all') {
+    const tbody = document.getElementById('points-body');
+    let rows = POINTS;
+    if(filter !== 'all') {
+      rows = POINTS.filter(p => p[0]===filter || p[1]===filter || p[0].includes(filter));
+    }
+    if(tbody) tbody.innerHTML = rows.map(p => {
+      const lot=p[0], niv=p[1], zone=p[2], desig=p[3], proto=p[4];
+      const ta=p[6], ts=p[7], tc=p[8], tm=p[9], tr=p[10];
+      const voie=p[11], addr=p[12], val=p[13];
+      const cls = lotColors[lot]||'';
+      const valCls = val.includes('⚠')||val.includes('↑')?'pt-val-warn':'pt-val-ok';
+      return `<tr>
+        <td class="${cls}">${lot}</td>
+        <td style="color:#4a7a5a">${niv}</td>
+        <td style="font-weight:600;color:#1b3a2a">${desig}</td>
+        <td style="color:#4a7a5a;font-size:9px">${zone}</td>
+        <td style="font-size:9px;color:#90b8a0">${proto}</td>
+        <td class="x-mark">${ta}</td><td class="x-mark">${ts}</td>
+        <td class="x-mark">${tc}</td><td class="x-mark">${tm}</td><td class="x-mark">${tr}</td>
+        <td style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#4a7a5a">${voie}</td>
+        <td style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#00695c">${addr}</td>
+        <td><span class="${valCls}">${val}</span></td>
+      </tr>`;
+    }).join('');
+  }
+
+  function filterPoints(filter, btn) {
+    document.querySelectorAll('.pt-filter').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    renderPoints(filter);
+  }
+
+  // Init liste de points
+  renderPoints();
+</script>
+</body>
+</html>
